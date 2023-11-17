@@ -1,7 +1,6 @@
 import React, {useRef, useEffect} from 'react';
 import Logo from '../assets/final.png';
 import {Link, useParams} from 'react-router-dom';
-import LoginSignup from './LoginSignup';
 
 const Navbar = () => {
 

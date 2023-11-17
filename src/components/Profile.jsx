@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import defaultPic from '../assets/profile.png';
+import {Link, useParams} from 'react-router-dom';
 
 const Profile = () => {
 
@@ -35,28 +36,43 @@ const Profile = () => {
     return (
     <div className='flex flex-col items-center'>
         <p className='font-[800] text-[90px] p-[50px]'>Personal Information</p>
-        <div className='flex flex-col items-center bg-primaryColor w-[1700px] h-[580px] mt-[20px] rounded-[50px]'>
+        <div className='flex flex-col items-center bg-[#e8deff] w-[1700px] h-[580px] mt-[20px] rounded-[50px]'>
             <div className='flex flex-col items-center'>
-                <img id='profilePic' className='w-[140px] rounded-full border-[7px] border-white mt-[-70px]' src={profilePicSrc} alt="/" />
-                
-                <label
-                    htmlFor='newpic'
-                    aria-hidden='True'
-                    className='mt-[-45px] ml-[90px] pl-[11px] pt-[5px] w-[45px] h-[45px] relative justify-center rounded-full bg-white text-[25px] shadow-xl hover:shadow-none hover:bg-slate-200 cursor-pointer'
-                >
-                    <input
-                    type='file'
-                    name='newpic'
-                    id='newpic'
-                    accept='.jpeg, .jpg, .png'
-                    className='absolute bottom-0 left-0 opacity-0 w-full'
-                    onChange={handleFileChange}
-                    />
-                    <i className='ri-camera-2-line'></i>
-                </label>
-                <h1 className='font-[500] text-[30px] text-white'>Muhtasin Jawad</h1>
+                <img id='profilePic' className='w-[140px] rounded-full border-[7px] border-white mt-[-70px]' src={profilePicSrc} alt="/" />  
             </div>
-            <form class="w-full max-w-lg">
+            <div className='flex flex-col justify-start'>
+                <div className='flex items-center gap-[350px] mt-[20px]'>
+                    <h1 className='font-[700] text-[50px] text-primaryColor'>Muhtasin Jawad</h1>
+                    <div>
+                        <h1 className='font-[600] text-gray-600 text-[20px] pl-2 pt-2'>BALANCE</h1>
+                        <p className='font-[700] text-smallTextColor text-[60px]'>&#2547; 0.00 BDT</p>
+                    </div>
+                </div>
+                <div className='flex justify-between items-end'>
+                    <div>
+                        <div className='flex flex-col mb-[20px]'>
+                            <p className='font-[600] text-[20px]'>Phone Number:</p>
+                            <h1 className='font-[400] text-[18px] text-gray-600'>01884279265</h1>
+                        </div>
+                        <div className='flex flex-col mb-[20px]'>
+                            <p className='font-[600] text-[20px]'>Address:</p>
+                            <h1 className='font-[400] text-[18px] text-gray-600'>550, North Shajahanpur</h1>
+                        </div>
+                        <div className='flex flex-col mb-[20px]'>
+                            <p className='font-[600] text-[20px]'>Date of Birth:</p>
+                            <h1 className='font-[400] text-[18px] text-gray-600'>Oct 16, 2002</h1>
+                        </div>
+                        <div className='flex flex-col mb-[20px]'>
+                            <p className='font-[600] text-[20px]'>Email:</p>
+                            <h1 className='font-[400] text-[18px] text-gray-600'>muhtasinjawad1@gmail.com</h1>
+                        </div>
+                    </div>
+                    <Link to='/edit'>
+                    <button className='flex justify-between items-center px-[20px] mt-[30px] w-[140px] h-[49px] bg-white text-primaryColor font-[700] cursor-pointer rounded-full hover:bg-primaryColor hover:text-white ease-in duration-150'><i class="ri-pencil-line"></i>Edit Profile</button>
+                    </Link>
+                </div>
+            </div>
+            {/* <form class="w-full max-w-lg">
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
@@ -117,7 +133,7 @@ const Profile = () => {
                     <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210" />
                     </div>
                 </div>
-                </form>
+                </form> */}
         </div>
     </div>
   );

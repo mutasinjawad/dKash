@@ -26,22 +26,22 @@ const Footer = () => {
                         <div className='flex items-center gap-4 flex-wrap md:gap-8 mt-10'>
                             <span className='text-gray-300 font-[600] text-[15px]'>Follow Us</span>
                             <span className='w-[35px] h-[35px] bg-[#2b2d33] p-1 rounded-[50px] cursor-pointer text-center'>
-                                <a href="#facebook" className='text-gray-300 font-[500] text-[18px]'>
+                                <a href="https://www.facebook.com/bkashlimited" className='text-gray-300 font-[500] text-[18px]'>
                                     <i class="ri-facebook-line"></i>
                                 </a>
                             </span>
                             <span className='w-[35px] h-[35px] bg-[#2b2d33] p-1 rounded-[50px] cursor-pointer text-center'>
-                                <a href="#youtube" className='text-gray-300 font-[500] text-[18px]'>
+                                <a href="https://www.youtube.com/@bKashLimited" className='text-gray-300 font-[500] text-[18px]'>
                                     <i class="ri-youtube-line"></i>
                                 </a>
                             </span>
                             <span className='w-[35px] h-[35px] bg-[#2b2d33] p-1 rounded-[50px] cursor-pointer text-center'>
-                                <a href="#facebook" className='text-gray-300 font-[500] text-[18px]'>
+                                <a href="https://www.instagram.com/bkash.ltd/" className='text-gray-300 font-[500] text-[18px]'>
                                     <i class="ri-instagram-line"></i>
                                 </a>
                             </span>
                             <span className='w-[35px] h-[35px] bg-[#2b2d33] p-1 rounded-[50px] cursor-pointer text-center'>
-                                <a href="#facebook" className='text-gray-300 font-[500] text-[18px]'>
+                                <a href="https://www.linkedin.com/company/bkash-limited/" className='text-gray-300 font-[500] text-[18px]'>
                                     <i class="ri-linkedin-line"></i>
                                 </a>
                             </span>
