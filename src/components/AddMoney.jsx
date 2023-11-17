@@ -1,6 +1,22 @@
 import React, { useState } from 'react';
 
-const AddMoney = () => {
+const AddMoney = ({token, user, setUser}) => {
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+          const form = { name, email };
+          fetch(host + "/money/add", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+                "token": token,
+            },
+            body: JSON.stringify(form),
+          })
+            .then((data) => data.text()).then(() => {navigate("/profile")})
+            .catch((err) => console.log(err));
+      };
+
     return(
         <div>
             <div className='flex justify-between px-[300px] my-[80px] w-[full]'>

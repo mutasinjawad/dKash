@@ -111,6 +111,9 @@ const Navbar = () => {
             >
               <i class="ri-menu-3-line"></i>
             </span>
+            <button className="flex items-center text-smallTextColor font-[600] border border-solid border-smallTextColor py-2 pl-4 pr-3 rounded-full max-h-[40px] hover:bg-smallTextColor hover:text-white ease-in duration-300">
+              <i class="ri-user-line"></i>
+            </button>
           </div>
         </div>
       </div>

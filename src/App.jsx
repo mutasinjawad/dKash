@@ -32,8 +32,8 @@ function App() {
             <Route path='/login' element={<Login setToken={setToken} token={token} setUser={setUser}/>} />
             <Route path='/profile' element={<Profile token={token} user={user} setUser={setUser}/>} />
             <Route path='/home' element={<UserHome token={token} user={user} setUser={setUser}/>} />
-            <Route path='/add' element={<AddMoney />} />
-            <Route path='/send' element={<SendMoney />} />
+            <Route path='/add' element={<AddMoney token={token} user={user} setUser={setUser}/>} />
+            <Route path='/send' element={<SendMoney token={token} user={user} setUser={setUser}/>} />
             <Route path='/edit' element={<ProfileEdit token={token} user={user} setUser={setUser}/>} />
             <Route path='/register' element={<Register />} />
           </Routes>

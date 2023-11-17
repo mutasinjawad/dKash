@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import defaultPic from '../assets/Profile.png';
+import { Link, useNavigate } from "react-router-dom";
 import host from "../api";
 
 const ProfileEdit = ({token, user, setUser}) => {
-    const [phone, setPhone] = useState('');
-    const [pin, setpin] = useState(''); 
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState(''); 
+    const navigate = useNavigate();
 
     const [ProfilePicSrc, setProfileEditPicSrc] = useState(defaultPic);
 
@@ -23,32 +25,41 @@ const ProfileEdit = ({token, user, setUser}) => {
             .catch((err) => console.log(err));
     }};
 
+    const handleChange = (e) => {
+        e.preventDefault();
+        const { name, value } = e.target;
+        if (name === "name") {
+          setName(value);
+        } else if (name === "email") {
+          setEmail(value);
+        }
+      };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-          const form = { phone, pin };
-          fetch(host + "/auth/login", {
+          const form = { name, email };
+          fetch(host + "/profile", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+                "token": token,
             },
             body: JSON.stringify(form),
           })
-            .then((data) => data.text()).then(t => {setToken(t)
-                const user = jwtDecode(t);
-                setUser(user);}).then(() => {navigate("/profile")})
+            .then((data) => data.text()).then(() => {navigate("/profile")})
             .catch((err) => console.log(err));
       };
 
     useEffect(() => {
-        const phoneInput = document.getElementById('phone');
+        const nameInput = document.getElementById('name');
     
-        if (phoneInput) {
-          phoneInput.addEventListener('input', function () {
-            const valid = phoneInput.checkValidity();
+        if (nameInput) {
+          nameInput.addEventListener('input', function () {
+            const valid = nameInput.checkValidity();
             if (valid) {
-              // Phone number is valid
+              // name number is valid
             } else {
-              // Phone number is not valid
+              // name number is not valid
             }
           });
         }
@@ -83,12 +94,18 @@ const ProfileEdit = ({token, user, setUser}) => {
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                         Name
                     </label>
-                    <input class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-last-name" type="text" placeholder="Doe" />
+                    <input 
+                        class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-last-name"
+                        type="text" placeholder="Doe"
+                        name='name'
+                        value={name}
+                        onChange={handleChange}
+                     />
                     </div>
                 </div>
                 {/* <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-name">
                     Address
                     </label>
                     <input class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="address" type="text" placeholder="ABC/1, This Road, City"/>
@@ -96,20 +113,26 @@ const ProfileEdit = ({token, user, setUser}) => {
                 </div> */}
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-name">
                         Email
                     </label>
-                    <input class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="address" type="email" placeholder="yourname@gmail.com"/>
+                    <input 
+                    class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" 
+                    id="address" type="email" placeholder="yourname@gmail.com"
+                    name='email'
+                    value={email}
+                    onChange={handleChange}
+                    />
                     </div>
                 </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
+                {/* <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone">
-                        Phone
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-name">
+                        name
                     </label>
-                    <h1 className='font-[400] text-[20px] text-gray-400'>{user.phone}</h1>
+                    <h1 className='font-[400] text-[20px] text-gray-400'>{user.name}</h1>
                     </div>
-                </div>
+                </div> */}
                 {/* <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">

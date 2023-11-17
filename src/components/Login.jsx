@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
 import host from "../api";
 
@@ -30,7 +30,7 @@ const Login = ({setToken, token, setUser}) => {
       })
         .then((data) => data.text()).then(t => {setToken(t)
             const user = jwtDecode(t);
-            setUser(user);}).then(() => {navigate("/profile")})
+            setUser(user);}).then(() => {navigate("/home")})
         .catch((err) => console.log(err));
   };
 
