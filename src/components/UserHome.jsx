@@ -54,12 +54,12 @@ const UserHome = ({token, user, setUser}) => {
                             </div>
                         </div>
                         {/* Payment */}
-                        <div className='ml-10 sm:mt-0'>
+                        {user.type !== 'agent' && (<div className='ml-10 sm:mt-0'>
                             <div
                                 className='flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300'>
                                     <h3 className='text-primaryColor font-[500] text-[17px] group-hover:text-white'>Payment <i class="ri-secure-payment-line"></i></h3>
                             </div>
-                        </div>
+                        </div>)}
                     </div>
                 </div>
             </div>

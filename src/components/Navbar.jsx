@@ -1,12 +1,11 @@
 import React, { useRef, useEffect } from "react";
 import Logo from "../assets/final.png";
-import { Link, useParams } from "react-router-dom";
-import Login from "./Login";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({setToken, setUser, token}) => {
   let params = useParams();
   let { name } = params;
-  console.log(name);
+  const navigate = useNavigate();
 
   const headerRef = useRef(null);
   const menuRef = useRef(null);
@@ -46,7 +45,7 @@ const Navbar = () => {
   return (
     <header
       ref={headerRef}
-      className="w-full h-[80px] leading-[80px] flex items-center bg-transparent"
+      className="w-full h-[80px] flex items-center bg-transparent"
     >
       <div className="container">
         <div className="flex items-center justify-between">
@@ -56,7 +55,7 @@ const Navbar = () => {
           </Link>
 
           {/* ============ Menu ============ */}
-          <div className="menu" ref={menuRef} onClick={toggleMenu}>
+          {!token && (<div className="menu" ref={menuRef} onClick={toggleMenu}>
             <ul className="flex items-center gap-10">
               <li>
                 <a
@@ -95,15 +94,19 @@ const Navbar = () => {
                 </a>
               </li>
             </ul>
-          </div>
+          </div>)}
 
           {/* ============ Menu Right ============ */}
           <div className="flex items-center gap-4">
-            <Link to="/register">
+            {!token && (<Link to="/register">
               <button className="flex items-center gap-1 text-smallTextColor font-[600] border border-solid border-smallTextColor py-2 pl-4 pr-3 rounded-full max-h-[40px] hover:bg-smallTextColor hover:text-white ease-in duration-300">
                 Get Started<i class="ri-arrow-right-s-line"></i>
               </button>
-            </Link>
+            </Link>)}
+
+            {token && (<button onClick={() => {localStorage.removeItem('token'); setToken(false); setUser(false); navigate('/register')}} className="flex items-center gap-1 text-smallTextColor font-[600] border border-solid border-smallTextColor py-2 pl-4 pr-3 rounded-full max-h-[40px] hover:bg-smallTextColor hover:text-white ease-in duration-300">
+                Log Out<i class="ri-arrow-right-s-line"></i>
+              </button>)}
 
             <span
               onClick={toggleMenu}
@@ -111,7 +114,7 @@ const Navbar = () => {
             >
               <i class="ri-menu-3-line"></i>
             </span>
-            <button className="flex items-center text-smallTextColor font-[600] border border-solid border-smallTextColor py-2 pl-4 pr-3 rounded-full max-h-[40px] hover:bg-smallTextColor hover:text-white ease-in duration-300">
+            <button className="flex justify-center items-center text-smallTextColor font-[600] border border-solid border-smallTextColor w-[40px] h-[40px] rounded-full hover:bg-smallTextColor hover:text-white ease-in duration-300">
               <i class="ri-user-line"></i>
             </button>
           </div>

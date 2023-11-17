@@ -9,6 +9,7 @@ import UserHome from "./components/UserHome";
 import AddMoney from "./components/AddMoney";
 import SendMoney from "./components/SendMoney";
 import ProfileEdit from "./components/ProfileEdit";
+import Transaction from "./components/Transiction";
 import Aos from "aos";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -35,7 +36,7 @@ function App() {
     <>
       <div>
         <BrowserRouter>
-          <Navbar />
+          <Navbar token={token} setToken={setToken} setUser={setUser}/>
           <Routes>
             <Route path="" element={<Home />} />
             <Route
@@ -44,7 +45,7 @@ function App() {
                 <Login setToken={setToken} token={token} setUser={setUser} />
               }
             />
-            <Route
+            {token &&(<><Route
               path="/profile"
               element={<Profile token={token} user={user} setUser={setUser} />}
             />
@@ -67,7 +68,8 @@ function App() {
               element={
                 <ProfileEdit token={token} user={user} setUser={setUser} />
               }
-            />
+            /></>)}
+            <Route path="/transaction" element={<Transaction />} />
             <Route path="/register" element={<Register />} />
           </Routes>
         </BrowserRouter>
