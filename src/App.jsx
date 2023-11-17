@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
-import LoginSignup from './components/LoginSignup';
+import Login from './components/Login';
+import Register from './components/Register';
 import Home from './components/Home';
 import Profile from './components/Profile';
 import UserHome from './components/UserHome';
@@ -17,6 +18,10 @@ function App() {
     Aos.init();
   }, []);
 
+  const [user, setUser] = useState(false);
+  const [token, setToken] = useState(false);
+
+
   return (
     <>
       <div>
@@ -24,12 +29,13 @@ function App() {
         <Navbar />
         <Routes>
             <Route path='' element={<Home />} />
-            <Route path='/getstarted' element={<LoginSignup />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/home' element={<UserHome />} />
+            <Route path='/login' element={<Login setToken={setToken} token={token} setUser={setUser}/>} />
+            <Route path='/profile' element={<Profile token={token} user={user} setUser={setUser}/>} />
+            <Route path='/home' element={<UserHome token={token} user={user} setUser={setUser}/>} />
             <Route path='/add' element={<AddMoney />} />
             <Route path='/send' element={<SendMoney />} />
-            <Route path='/edit' element={<ProfileEdit />} />
+            <Route path='/edit' element={<ProfileEdit token={token} user={user} setUser={setUser}/>} />
+            <Route path='/register' element={<Register />} />
           </Routes>
         </BrowserRouter>
       </div>

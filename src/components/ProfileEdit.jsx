@@ -1,21 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import defaultPic from '../assets/Profile.png';
+import host from "../api";
 
-const ProfileEdit = () => {
+const ProfileEdit = ({token, user, setUser}) => {
+    const [phone, setPhone] = useState('');
+    const [pin, setpin] = useState(''); 
 
     const [ProfilePicSrc, setProfileEditPicSrc] = useState(defaultPic);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-        // Read the selected file as a data URL
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            setProfileEditPicSrc(e.target.result);
-        };
-        reader.readAsDataURL(file);
-        }
-    };
+            const formData = new FormData();
+            formData.append("image", file);
+            fetch(host + "/profile/picture", {
+                method: "POST",
+                headers: {
+                    'token': token,
+                },
+                body: formData,
+            }).then((data) => data.json()).then((data) => {console.log(data)})
+            .catch((err) => console.log(err));
+    }};
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+          const form = { phone, pin };
+          fetch(host + "/auth/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(form),
+          })
+            .then((data) => data.text()).then(t => {setToken(t)
+                const user = jwtDecode(t);
+                setUser(user);}).then(() => {navigate("/profile")})
+            .catch((err) => console.log(err));
+      };
 
     useEffect(() => {
         const phoneInput = document.getElementById('phone');
@@ -57,35 +79,21 @@ const ProfileEdit = () => {
             </div>
             <form class="w-full max-w-lg">
                 <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                        First Name
-                    </label>
-                    <input class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane" />
-                    </div>
-                    <div class="w-full md:w-1/2 px-3">
+                    <div class="w-full px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                        Last Name
+                        Name
                     </label>
                     <input class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-last-name" type="text" placeholder="Doe" />
                     </div>
                 </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
+                {/* <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone">
-                        Phone
-                    </label>
-                    <input class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="phone" type="tel" placeholder="01XX-XXXX-XXX" pattern="01[3-9][0-35-9]-\d{4}-\d{3}" required/>
-                    </div>
-                </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone">
-                        Address
+                    Address
                     </label>
                     <input class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="address" type="text" placeholder="ABC/1, This Road, City"/>
                     </div>
-                </div>
+                </div> */}
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone">
@@ -94,16 +102,24 @@ const ProfileEdit = () => {
                     <input class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="address" type="email" placeholder="yourname@gmail.com"/>
                     </div>
                 </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full px-3">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone">
+                        Phone
+                    </label>
+                    <h1 className='font-[400] text-[20px] text-gray-400'>{user.phone}</h1>
+                    </div>
+                </div>
                 {/* <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-                        Password
+                    Password
                     </label>
                     <input class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-password" type="password" placeholder="******************" />
                     <p class="text-gray-400 text-xs mt-[5px] italic">Make it as long and as crazy as you'd like</p>
                     </div>
                 </div> */}
-                <div class="flex flex-wrap -mx-3 mb-2">
+                {/* <div class="flex flex-wrap -mx-3 mb-2">
                     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
                             Day
@@ -171,9 +187,11 @@ const ProfileEdit = () => {
                         </label>
                     <input class="appearance-none w-full bg-white text-gray-700 rounded-full py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grid-zip" type="text" placeholder="2000" />
                     </div>
-                </div>
+                </div> */}
             </form>
-            <button className='flex justify-between items-center mt-[-55px] mr-[-900px] p-[18px] w-[100px] h-[49px] bg-primaryColor text-white font-[700] cursor-pointer rounded-full hover:bg-[#4c00b4] ease-in duration-150'><i class="ri-arrow-right-circle-line"></i>Done</button>
+            <button 
+            onClick={handleSubmit}
+            className='flex justify-between items-center mt-[-55px] mr-[-900px] p-[18px] w-[100px] h-[49px] bg-primaryColor text-white font-[700] cursor-pointer rounded-full hover:bg-[#4c00b4] ease-in duration-150' href="/profile"><i class="ri-arrow-right-circle-line"></i>Done</button>
         </div>
     </div>
   );

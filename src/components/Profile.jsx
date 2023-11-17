@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import defaultPic from '../assets/profile.png';
 import {Link, useParams} from 'react-router-dom';
+import host from "../api";
 
-const Profile = () => {
+const Profile = ({token, user, setUser}) => {
 
     const [profilePicSrc, setProfilePicSrc] = useState(defaultPic);
 
@@ -19,52 +20,49 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        const phoneInput = document.getElementById('phone');
-    
-        if (phoneInput) {
-          phoneInput.addEventListener('input', function () {
-            const valid = phoneInput.checkValidity();
-            if (valid) {
-              // Phone number is valid
-            } else {
-              // Phone number is not valid
-            }
-          });
-        }
-        }, []);
+        fetch(host + "/profile", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "token": token,
+            },
+          }).then((data) => data.json()).then((data) => {setUser(data);console.log(data)})
+            .catch((err) => console.log(err));
+    }
+    , [token]);
 
     return (
     <div className='flex flex-col items-center'>
         <p className='font-[800] text-[90px] p-[50px]'>Personal Information</p>
         <div className='flex flex-col items-center bg-[#e8deff] w-[1700px] h-[580px] mt-[20px] rounded-[50px]'>
             <div className='flex flex-col items-center'>
-                <img id='profilePic' className='w-[140px] rounded-full border-[7px] border-white mt-[-70px]' src={profilePicSrc} alt="/" />  
+                <img id='profilePic' className='w-[140px] rounded-full border-[7px] border-white mt-[-70px]' src={user.picture ? user.picture : profilePicSrc} alt="/" />  
             </div>
             <div className='flex flex-col justify-start'>
                 <div className='flex items-center gap-[350px] mt-[20px]'>
-                    <h1 className='font-[700] text-[50px] text-primaryColor'>Muhtasin Jawad</h1>
+                    <h1 className='font-[700] text-[50px] text-primaryColor'>{user.name}</h1>
                     <div>
                         <h1 className='font-[600] text-gray-600 text-[20px] pl-2 pt-2'>BALANCE</h1>
-                        <p className='font-[700] text-smallTextColor text-[60px]'>&#2547; 0.00 BDT</p>
+                        <p className='font-[700] text-smallTextColor text-[60px]'>&#2547; {user.balance} BDT</p>
                     </div>
                 </div>
                 <div className='flex justify-between items-end'>
                     <div>
                         <div className='flex flex-col mb-[20px]'>
                             <p className='font-[600] text-[20px]'>Phone Number:</p>
-                            <h1 className='font-[400] text-[18px] text-gray-600'>01884279265</h1>
+                            <h1 className='font-[400] text-[18px] text-gray-600'>{user.phone}</h1>
                         </div>
-                        <div className='flex flex-col mb-[20px]'>
+                        {/* <div className='flex flex-col mb-[20px]'>
                             <p className='font-[600] text-[20px]'>Address:</p>
                             <h1 className='font-[400] text-[18px] text-gray-600'>550, North Shajahanpur</h1>
-                        </div>
-                        <div className='flex flex-col mb-[20px]'>
+                        </div> */}
+                        {/* <div className='flex flex-col mb-[20px]'>
                             <p className='font-[600] text-[20px]'>Date of Birth:</p>
                             <h1 className='font-[400] text-[18px] text-gray-600'>Oct 16, 2002</h1>
-                        </div>
+                        </div> */}
                         <div className='flex flex-col mb-[20px]'>
                             <p className='font-[600] text-[20px]'>Email:</p>
-                            <h1 className='font-[400] text-[18px] text-gray-600'>muhtasinjawad1@gmail.com</h1>
+                            <h1 className='font-[400] text-[18px] text-gray-600'>{user.email}</h1>
                         </div>
                     </div>
                     <Link to='/edit'>

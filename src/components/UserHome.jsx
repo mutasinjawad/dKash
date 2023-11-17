@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link, useParams} from 'react-router-dom';
+import host from "../api";
 
-const UserHome = () => {
+const UserHome = ({token, user, setUser}) => {
+
+    useEffect(() => {
+        fetch(host + "/profile", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "token": token,
+            },
+          }).then((data) => data.json()).then((data) => {setUser(data)})
+            .catch((err) => console.log(err));
+    }
+    , [token]);
+
+
     return(
         <div>
             <div className='flex justify-between px-[230px] my-[80px] w-[full]'>
                 <div>
                     <h1 className='font-[600] text-[20px] p-2'>BALANCE</h1>
-                    <p className='font-[700] text-[80px]'>&#2547; 0.00 BDT</p>
+                    <p className='font-[700] text-[80px]'>&#2547; {user.balance} BDT</p>
                 </div>
                 <div className='flex flex-col'>
                     <div className='flex mb-[40px]'>
