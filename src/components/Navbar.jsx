@@ -51,7 +51,7 @@ const Navbar = ({setToken, setUser, token}) => {
         <div className="flex items-center justify-between">
           {/* ============ Logo ============ */}
           <Link to="">
-            <img className="w-[150px] my-4" src={Logo} alt="/" />
+            <img className="w-[150px] my-4" src={Logo} alt={token ? '/home' : ''} />
           </Link>
 
           {/* ============ Menu ============ */}
@@ -104,6 +104,10 @@ const Navbar = ({setToken, setUser, token}) => {
               </button>
             </Link>)}
 
+            {token && (<button onClick={() => {navigate('/profile')}} className="flex justify-center items-center text-smallTextColor font-[600] border border-solid border-smallTextColor w-[40px] h-[40px] rounded-full hover:bg-smallTextColor hover:text-white ease-in duration-300">
+              <i class="ri-user-line"></i>
+            </button>)}
+
             {token && (<button onClick={() => {localStorage.removeItem('token'); setToken(false); setUser(false); navigate('/register')}} className="flex items-center gap-1 text-smallTextColor font-[600] border border-solid border-smallTextColor py-2 pl-4 pr-3 rounded-full max-h-[40px] hover:bg-smallTextColor hover:text-white ease-in duration-300">
                 Log Out<i class="ri-arrow-right-s-line"></i>
               </button>)}
@@ -114,9 +118,6 @@ const Navbar = ({setToken, setUser, token}) => {
             >
               <i class="ri-menu-3-line"></i>
             </span>
-            <button className="flex justify-center items-center text-smallTextColor font-[600] border border-solid border-smallTextColor w-[40px] h-[40px] rounded-full hover:bg-smallTextColor hover:text-white ease-in duration-300">
-              <i class="ri-user-line"></i>
-            </button>
           </div>
         </div>
       </div>

@@ -77,18 +77,18 @@ const Login = ({ setToken, token, setUser }) => {
         <span className="text-white cursor-pointer">Click Here!</span>
       </div>
       <div className="flex gap-[30px] my-[50px] mx-auto">
-        <div
-          onClick={handleSubmit}
-          className={`flex justify-center items-center w-[220px] h-[59px] text-[19px] font-[700] cursor-pointer rounded-full bg-[#eaeaea] text-[#4c00b4]`}
-        >
-          Login
-        </div>
         <Link
           to={"/register"}
           className={`flex justify-center items-center w-[220px] h-[59px] text-[19px] font-[700] cursor-pointer rounded-full bg-[#3c009d] text-white`}
         >
           Sign Up
         </Link>
+        <div
+          onClick={handleSubmit}
+          className={`flex justify-center items-center w-[220px] h-[59px] text-[19px] font-[700] cursor-pointer rounded-full bg-[#eaeaea] text-[#4c00b4]`}
+        >
+          Login
+        </div>
       </div>
     </div>
   );

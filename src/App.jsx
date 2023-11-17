@@ -7,9 +7,10 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import UserHome from "./components/UserHome";
 import AddMoney from "./components/AddMoney";
+import Cashout from "./components/Cashout";
 import SendMoney from "./components/SendMoney";
+import Payment from "./components/Payment";
 import ProfileEdit from "./components/ProfileEdit";
-import Transaction from "./components/Transiction";
 import Aos from "aos";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -64,12 +65,23 @@ function App() {
               }
             />
             <Route
+              path="/cashout"
+              element={
+                <Cashout token={token} user={user} setUser={setUser} />
+              }
+            />
+            <Route
+              path="/payment"
+              element={
+                <Payment token={token} user={user} setUser={setUser} />
+              }
+            />
+            <Route
               path="/edit"
               element={
                 <ProfileEdit token={token} user={user} setUser={setUser} />
               }
             /></>)}
-            <Route path="/transaction" element={<Transaction />} />
             <Route path="/register" element={<Register />} />
           </Routes>
         </BrowserRouter>

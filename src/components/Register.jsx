@@ -29,7 +29,7 @@ const Register = () => {
         },
         body: JSON.stringify(form),
       })
-        .then((data) => console.log(data))
+        .then((data) => {navigate("/home")})
         .catch((err) => console.log(err));
     }
   };
