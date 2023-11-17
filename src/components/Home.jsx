@@ -1,11 +1,10 @@
-import Hero from './Hero';
-import About from './About';
-import Services from './Services';
-import Contact from './Contact';
-import Footer from './Footer';
+import Hero from "./Hero";
+import About from "./About";
+import Services from "./Services";
+import Contact from "./Contact";
+import Footer from "./Footer";
 
 function Home() {
-
   return (
     <>
       <div>
@@ -16,7 +15,7 @@ function Home() {
         <Footer />
       </div>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

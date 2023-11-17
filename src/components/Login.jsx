@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import host from "../api";
 
-const Login = ({setToken, token, setUser}) => {
-  const [phone, setPhone] = useState('');
-  const [pin, setpin] = useState(''); 
+const Login = ({ setToken, token, setUser }) => {
+  const [phone, setPhone] = useState("");
+  const [pin, setpin] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -20,21 +20,26 @@ const Login = ({setToken, token, setUser}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      const form = { phone, pin };
-      fetch(host + "/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
+    const form = { phone, pin };
+    fetch(host + "/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    })
+      .then((data) => data.text())
+      .then((t) => {
+        localStorage.setItem("token", t);
+        setToken(t);
+        const user = jwtDecode(t);
+        setUser(user);
       })
-        .then((data) => data.text()).then(t => {setToken(t)
-            const user = jwtDecode(t);
-            setUser(user);}).then(() => {navigate("/home")})
-        .catch((err) => console.log(err));
+      .then(() => {
+        navigate("/home");
+      })
+      .catch((err) => console.log(err));
   };
-
-  
 
   return (
     <div className="container flex flex-col mt-[100px] mb-[50px] bg-primaryColor w-[600px] rounded-[30px]">
@@ -59,7 +64,7 @@ const Login = ({setToken, token, setUser}) => {
           <input
             className="h-[50px] w-[400px] bg-transparent text-[19px] focus:outline-none pl-[20px]"
             type="pinword"
-            name='pin'
+            name="pin"
             placeholder="6 Digit Pin"
             value={pin}
             onChange={handleChange}
