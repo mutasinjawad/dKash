@@ -50,8 +50,8 @@ const Navbar = ({setToken, setUser, token}) => {
       <div className="container">
         <div className="flex items-center justify-between">
           {/* ============ Logo ============ */}
-          <Link to="">
-            <img className="w-[150px] my-4" src={Logo} alt={token ? '/home' : ''} />
+          <Link to={token ? '/home' : ''}>
+            <img className="w-[150px] my-4" src={Logo} alt=''/>
           </Link>
 
           {/* ============ Menu ============ */}
@@ -61,7 +61,7 @@ const Navbar = ({setToken, setUser, token}) => {
                 <a
                   onClick={handleClick}
                   className="text-smallTextColor font-[600]"
-                  href="/"
+                  href="#home"
                 >
                   Home
                 </a>

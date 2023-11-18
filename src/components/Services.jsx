@@ -25,7 +25,7 @@ const Services = () => {
                                                 data-aos='fade-right' 
                                                 data-aos-duration='1200' 
                                                 className='bg-white p-4 rounded shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150'>
-                                                    <h3 className='text-primaryColor font-[700] mb-3 group-hover:text-white group-hover:font-[600] text-2xl'>Frontend Developement</h3>
+                                                    <h3 className='text-primaryColor font-[700] mb-3 group-hover:text-white group-hover:font-[600] text-2xl'>Online Banking</h3>
                                                     <p className='text-[15px] text-smallTextColor group-hover:text-white group-hover:font-[500]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, esse. Maxime, molestiae neque? Suscipit, iusto?</p>
                                             </div>
                                         </div>
@@ -42,7 +42,7 @@ const Services = () => {
                                                 data-aos-delay='50'
                                                 data-aos-duration='1200' 
                                                 className='bg-white p-4 rounded shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150'>
-                                                    <h3 className='text-primaryColor font-[700] mb-3 group-hover:text-white group-hover:font-[600] text-2xl'>Frontend Developement</h3>
+                                                    <h3 className='text-primaryColor font-[700] mb-3 group-hover:text-white group-hover:font-[600] text-2xl'>Saving Money</h3>
                                                     <p className='text-[15px] text-smallTextColor group-hover:text-white group-hover:font-[500]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, esse. Maxime, molestiae neque? Suscipit, iusto?</p>
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@ const Services = () => {
                                                 data-aos-delay='100'
                                                 data-aos-duration='1400' 
                                                 className='bg-white p-4 rounded shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150'>
-                                                    <h3 className='text-primaryColor font-[700] mb-3 group-hover:text-white group-hover:font-[600] text-2xl'>Frontend Developement</h3>
+                                                    <h3 className='text-primaryColor font-[700] mb-3 group-hover:text-white group-hover:font-[600] text-2xl'>Viewing Statements</h3>
                                                     <p className='text-[15px] text-smallTextColor group-hover:text-white group-hover:font-[500]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, esse. Maxime, molestiae neque? Suscipit, iusto?</p>
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@ const Services = () => {
                                                 data-aos='fade-left' 
                                                 data-aos-duration='1500' 
                                                 className='bg-white p-4 rounded shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150'>
-                                                    <h3 className='text-primaryColor font-[700] mb-3 group-hover:text-white group-hover:font-[600] text-2xl'>Frontend Developement</h3>
+                                                    <h3 className='text-primaryColor font-[700] mb-3 group-hover:text-white group-hover:font-[600] text-2xl'>Paying Bills</h3>
                                                     <p className='text-[15px] text-smallTextColor group-hover:text-white group-hover:font-[500]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, esse. Maxime, molestiae neque? Suscipit, iusto?</p>
                                             </div>
                                         </div>

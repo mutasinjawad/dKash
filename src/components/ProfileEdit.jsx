@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import host from "../api";
 
 const ProfileEdit = ({token, user, setUser}) => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState(''); 
+    const [name, setName] = useState(user.name);
+    const [email, setEmail] = useState(user.email); 
     const navigate = useNavigate();
 
     const [ProfilePicSrc, setProfileEditPicSrc] = useState(defaultPic);

@@ -33,13 +33,14 @@ const UserHome = ({ token, user, setUser }) => {
     <div>
       <div className="flex justify-between px-[230px] my-[80px] w-[full]">
         <div>
+          <p className="font-[700] text-[60px] text-smallTextColor mb-[20px]">{user.name}</p>
           <h1 className="font-[600] text-[20px] p-2">BALANCE</h1>
           <p className="font-[700] text-[80px]">&#2547; {user.balance} BDT</p>
         </div>
         <div className="flex flex-col">
           <div className="flex justify-center mb-[40px]">
             {/* Add Money */}
-            {user.type !== 'user' &&(<Link to="/add">
+            {user.type === 'agent' && (<Link to="/add">
               <div className="mr-10 sm:mt-0">
                 <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
                   <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
@@ -49,7 +50,7 @@ const UserHome = ({ token, user, setUser }) => {
               </div>
             </Link>)}
             {/* send Money */}
-            <Link to="/send">
+            {user.type !== 'merchant' && (<Link to="/send">
               <div className="">
                 <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
                   <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
@@ -57,7 +58,7 @@ const UserHome = ({ token, user, setUser }) => {
                   </h3>
                 </div>
               </div>
-            </Link>
+            </Link>)}
           </div>
           <div className="flex justify-center">
             {/* Cashout */}

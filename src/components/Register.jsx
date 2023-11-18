@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import host from "../api";
 const Register = () => {
+  const [uName, setUName] = useState("");
   const [phone, setPhone] = useState("");
   const [pin, setPin] = useState("");
   const [cPin, setCPin] = useState("");
@@ -11,6 +12,8 @@ const Register = () => {
     const { name, value } = e.target;
     if (name === "phone") {
       setPhone(value);
+    } else if (name === "uName") {
+      setUName(value);
     } else if (name === "pin") {
       setPin(value);
     } else if (name === "cpin") {
@@ -40,6 +43,17 @@ const Register = () => {
         <div className="mt-[30px] w-[70px] h-[6px] bg-white rounded-[10px]"></div>
       </div>
       <div className="mt-[45px] flex flex-col gap-[25px]">
+        {/* <div className="flex items-center m-auto w-[480px] h-[80px] bg-white rounded-[20px] p-7 focus:outline-none">
+            <i class="ri-phone-line"></i>
+            <input
+              className="h-[50px] w-[400px] bg-transparent text-[19px] focus:outline-none pl-[20px]"
+              type="text"
+              placeholder="Name"
+              name="uName"
+              value={uName}
+              onChange={handleChange}
+            />
+        </div> */}
         <div className="flex items-center m-auto w-[480px] h-[80px] bg-white rounded-[20px] p-7 focus:outline-none">
           <i class="ri-phone-line"></i>
           <input
@@ -51,14 +65,6 @@ const Register = () => {
             onChange={handleChange}
           />
         </div>
-        {/* <div className="flex items-center m-auto w-[480px] h-[80px] bg-white rounded-[20px] p-7 focus:outline-none">
-          <i className="ri-mail-line"></i>
-          <input
-            className="h-[50px] w-full bg-transparent text-[19px] focus:outline-none pl-[20px]"
-            type="email"
-            placeholder="Email"
-          />
-        </div> */}
         <div className="flex items-center m-auto w-[480px] h-[80px] bg-white rounded-[20px] p-7 focus:outline-none">
           <i className="ri-lock-line"></i>
           <input
