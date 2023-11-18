@@ -63,7 +63,7 @@ const Login = ({ setToken, token, setUser }) => {
           <i className="ri-lock-line"></i>
           <input
             className="h-[50px] w-[400px] bg-transparent text-[19px] focus:outline-none pl-[20px]"
-            type="pinword"
+            type="password"
             name="pin"
             placeholder="6 Digit Pin"
             value={pin}
@@ -72,10 +72,6 @@ const Login = ({ setToken, token, setUser }) => {
         </div>
       </div>
 
-      <div className="pl-[62px] mt-[27px] text-gray-400 text-[18px]">
-        Lost pinword?{" "}
-        <span className="text-white cursor-pointer">Click Here!</span>
-      </div>
       <div className="flex gap-[30px] my-[50px] mx-auto">
         <Link
           to={"/register"}
