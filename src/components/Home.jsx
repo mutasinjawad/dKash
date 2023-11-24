@@ -4,7 +4,7 @@ import Services from "./Services";
 import Contact from "./Contact";
 import Footer from "./Footer";
 
-function Home() {
+function Home({ token, user, setUser }) {
   return (
     <>
       <div>
@@ -12,7 +12,7 @@ function Home() {
         <About />
         <Services />
         <Contact />
-        <Footer />
+        <Footer token={token} user={user} setUser={setUser} />
       </div>
     </>
   );

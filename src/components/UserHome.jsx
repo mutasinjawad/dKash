@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import defaultPic from '../assets/profile.png';
+import Footer from "./Footer";
 import host from "../api";
 
 const UserHome = ({ token, user, setUser }) => {
@@ -311,6 +312,8 @@ const UserHome = ({ token, user, setUser }) => {
             </div>
         </div>
         </section> */}
+
+      <Footer token={token} user={user} setUser={setUser}/>
     </div>
   );
 };

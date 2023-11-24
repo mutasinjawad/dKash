@@ -1,7 +1,8 @@
 import React from 'react'
 import Logo from '../assets/logo.png'
+import { Link } from 'react-router-dom';
 
-const Footer = () => {
+const Footer = ({ token, user, setUser }) => {
 
     const year = new Date().getFullYear()
 
@@ -13,7 +14,7 @@ const Footer = () => {
                         <h2 className='text-[26px] leading-10 text-white font-[600] mb-5 md:text-[2rem]'>
                             Do you want to make more money?
                         </h2>
-                        <a href="#contact">
+                        <a href={token? '/contact':'#contact'}>
                             <button className='bg-primaryColor text-white font-[500] flex items-center gap-2 hover:bg-smallTextColor ease-in duration-300 py-2 px-4 rounded-[8px]'>
                                 <i class='ri-mail-line'></i>Mail Us
                             </button>

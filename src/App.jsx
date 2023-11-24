@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
+import Contact from "./components/Contact";
 import Profile from "./components/Profile";
 import UserHome from "./components/UserHome";
 import AddMoney from "./components/AddMoney";
@@ -12,6 +13,7 @@ import SendMoney from "./components/SendMoney";
 import Payment from "./components/Payment";
 import ProfileEdit from "./components/ProfileEdit";
 import QRGenerator from "./components/QRGenerator";
+import QRScanner from "./components/QRScanner";
 import Aos from "aos";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -47,6 +49,10 @@ function App() {
                 <Login setToken={setToken} token={token} setUser={setUser} />
               }
             />
+            <Route 
+              path="/contact" 
+              element={<Contact token={token} user={user} setUser={setUser}/>} 
+              />
             {token &&(<><Route
               path="/profile"
               element={<Profile token={token} user={user} setUser={setUser} />}
@@ -68,7 +74,11 @@ function App() {
             <Route
               path="/qr"
               element={<QRGenerator token={token} user={user} setUser={setUser} />}
-            ></Route>
+            />
+            <Route
+              path="/scan"
+              element={<QRScanner />} 
+            />
             <Route
               path="/cashout"
               element={
