@@ -45,9 +45,9 @@ const Navbar = ({setToken, setUser, token}) => {
   return (
     <header
       ref={headerRef}
-      className="w-full h-[80px] flex items-center bg-transparent"
+      className="w-full h-[80px] flex items-center"
     >
-      <div className="container">
+      <div className="container bg-transparent">
         <div className="flex items-center justify-between">
           {/* ============ Logo ============ */}
           <Link to={token ? '/home' : ''}>

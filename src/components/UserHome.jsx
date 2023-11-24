@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import defaultPic from '../assets/profile.png';
 import host from "../api";
 
 const UserHome = ({ token, user, setUser }) => {
   const [transactions, setTransactions] = useState([]);
+  const [profilePicSrc] = useState(defaultPic);
+
   useEffect(() => {
     fetch(host + "/profile", {
       method: "GET",
@@ -31,60 +34,64 @@ const UserHome = ({ token, user, setUser }) => {
 
   return (
     <div>
-      <div className="flex justify-between px-[230px] my-[80px] w-[full]">
-        <div>
-          <p className="font-[700] text-[60px] text-smallTextColor mb-[20px]">{user.name}</p>
-          <h1 className="font-[600] text-[20px] p-2">BALANCE</h1>
-          <p className="font-[700] text-[80px]">&#2547; {user.balance} BDT</p>
-        </div>
-        <div className="flex flex-col">
-          <div className="flex justify-center mb-[40px]">
-            {/* Add Money */}
-            {user.type === 'agent' && (<Link to="/add">
-              <div className="mr-10 sm:mt-0">
-                <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
-                  <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
-                    Add Money <i class="ri-map-pin-add-line"></i>
-                  </h3>
-                </div>
-              </div>
-            </Link>)}
-            {/* send Money */}
-            {user.type !== 'merchant' && (<Link to="/send">
-              <div className="">
-                <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
-                  <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
-                    Send Money <i class="ri-send-plane-line"></i>
-                  </h3>
-                </div>
-              </div>
-            </Link>)}
+      <div className="flex justify-between px-[230px] py-[60px] w-full h-full">
+          <div>
+            <div className="flex items-center">
+              <img id='profilePic' className='w-[140px] rounded-full my-[20px] mr-[50px]' src={user.picture ? user.picture : profilePicSrc} alt="/" />
+              <p className="font-[700] text-[60px] text-smallTextColor mb-[20px]">{user.name}</p>
+            </div>
+            <h1 className="font-[600] text-[20px] p-2">BALANCE</h1>
+            <p className="font-[700] text-[80px]">&#2547; {user.balance} BDT</p>
           </div>
-          <div className="flex justify-center">
-            {/* Cashout */}
-            <Link to="/cashout">
-              <div className="mr-10 sm:mt-0">
-                <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
-                  <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
-                    Cashout <i class="ri-logout-circle-r-line"></i>
-                  </h3>
+          <div className="flex flex-col justify-center">
+            <div className="flex justify-center mb-[40px]">
+              {/* Add Money */}
+              {user.type === 'agent' && (<Link to="/add">
+                <div className="mr-10 sm:mt-0">
+                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
+                    <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
+                      Add Money <i class="ri-map-pin-add-line"></i>
+                    </h3>
+                  </div>
                 </div>
-              </div>
-            </Link>
-            {/* Payment */}
-            {user.type !== "agent" && (
-                <Link to="/payment">
-                    <div className="ml-10 sm:mt-0">
-                        <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
-                        <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
-                            Payment <i class="ri-secure-payment-line"></i>
-                        </h3>
-                        </div>
-                    </div>
-                </Link>
-            )}
+              </Link>)}
+              {/* send Money */}
+              {user.type !== 'merchant' && (<Link to="/send">
+                <div className="">
+                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
+                    <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
+                      Send Money <i class="ri-send-plane-line"></i>
+                    </h3>
+                  </div>
+                </div>
+              </Link>)}
+            </div>
+            <div className="flex justify-center">
+              {/* Cashout */}
+              <Link to="/cashout">
+                <div className="mr-10 sm:mt-0">
+                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
+                    <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
+                      Cashout <i class="ri-logout-circle-r-line"></i>
+                    </h3>
+                  </div>
+                </div>
+              </Link>
+              {/* Payment */}
+              {user.type !== "agent" && (
+                  <Link to="/payment">
+                      <div className="ml-10 sm:mt-0">
+                          <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
+                          <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
+                              Payment <i class="ri-secure-payment-line"></i>
+                          </h3>
+                          </div>
+                      </div>
+                  </Link>
+              )}
+            </div>
           </div>
-        </div>
+        
       </div>
       <div className="flex flex-col items-center px-[230px] bg-smallTextColor h-[518px] w-full">
         <h1 className="font-[600] text-[40px] text-white pt-10">RECENT</h1>

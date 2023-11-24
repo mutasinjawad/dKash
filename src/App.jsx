@@ -11,6 +11,7 @@ import Cashout from "./components/Cashout";
 import SendMoney from "./components/SendMoney";
 import Payment from "./components/Payment";
 import ProfileEdit from "./components/ProfileEdit";
+import QRGenerator from "./components/QRGenerator";
 import Aos from "aos";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -64,6 +65,10 @@ function App() {
                 <SendMoney token={token} user={user} setUser={setUser} />
               }
             />
+            <Route
+              path="/qr"
+              element={<QRGenerator token={token} user={user} setUser={setUser} />}
+            ></Route>
             <Route
               path="/cashout"
               element={
