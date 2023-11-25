@@ -15,6 +15,7 @@ import ProfileEdit from "./components/ProfileEdit";
 import QRGenerator from "./components/QRGenerator";
 import QRScanner from "./components/QRScanner";
 import TanStackTable from "./components/TanStackTable";
+import SlideOver from "./components/SlideOver";
 import Aos from "aos";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -75,6 +76,10 @@ function App() {
             <Route
               path="/qr"
               element={<QRGenerator token={token} user={user} setUser={setUser} />}
+            />
+            <Route 
+              path="/slide" 
+              element={<SlideOver />} 
             />
             <Route
               path="/scan"

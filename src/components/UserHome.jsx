@@ -38,18 +38,21 @@ const UserHome = ({ token, user, setUser }) => {
       <div className="flex justify-between px-[230px] py-[60px] w-full h-full">
           <div>
             <div className="flex items-center">
-              <img id='profilePic' className='w-[140px] rounded-full my-[20px] mr-[50px]' src={user.picture ? user.picture : profilePicSrc} alt="/" />
-              <p className="font-[700] text-[60px] text-smallTextColor mb-[20px]">{user.name}</p>
+              <img id='profilePic' className='w-[100px] rounded-full my-[20px] mr-[50px]' src={user.picture ? user.picture : profilePicSrc} alt="/" />
+              <p className="font-[600] text-[40px] text-smallTextColor mb-[20px]">{user.name}</p>
             </div>
-            <h1 className="font-[600] text-[20px] p-2">BALANCE</h1>
-            <p className="font-[700] text-[80px]">&#2547; {user.balance} BDT</p>
+            <h1 className="font-[700] text-[15px] p-2">BALANCE</h1>
+            <div className="flex items-center">
+              <p className="font-[600] text-[50px]">&#2547; {user.balance}</p>
+              <h1 className="ml-[10px] mt-[17px] text-[25px] font-[400] text-gray-600">BDT</h1>
+            </div>
           </div>
           <div className="flex flex-col justify-center">
             <div className="flex justify-center mb-[40px]">
               {/* Add Money */}
               {user.type === 'agent' && (<Link to="/add">
                 <div className="mr-10 sm:mt-0">
-                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
+                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
                     <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
                       Add Money <i class="ri-map-pin-add-line"></i>
                     </h3>
@@ -59,7 +62,7 @@ const UserHome = ({ token, user, setUser }) => {
               {/* send Money */}
               {user.type !== 'merchant' && (<Link to="/send">
                 <div className="">
-                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
+                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
                     <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
                       Send Money <i class="ri-send-plane-line"></i>
                     </h3>
@@ -71,7 +74,7 @@ const UserHome = ({ token, user, setUser }) => {
               {/* Cashout */}
               <Link to="/cashout">
                 <div className="mr-10 sm:mt-0">
-                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
+                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
                     <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
                       Cashout <i class="ri-logout-circle-r-line"></i>
                     </h3>
@@ -82,7 +85,7 @@ const UserHome = ({ token, user, setUser }) => {
               {user.type !== "agent" && (
                   <Link to="/payment">
                       <div className="ml-10 sm:mt-0">
-                          <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-300">
+                          <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
                           <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
                               Payment <i class="ri-secure-payment-line"></i>
                           </h3>
@@ -94,11 +97,11 @@ const UserHome = ({ token, user, setUser }) => {
           </div>
         
       </div>
-      <div className="flex flex-col items-center px-[230px] bg-smallTextColor h-[518px] w-full">
+      <div className="flex flex-col items-center px-[230px] h-[518px] w-full bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-400">
         <h1 className="font-[600] text-[40px] text-white pt-10">RECENT</h1>
         <div className="mt-[60px]">
           <table className="text-white bg-transparent">
-            <thead>
+            <thead className="bg-smallTextColor">
               <tr>
                 <th className="py-2 px-4 border-b">Sender ID</th>
                 <th className="py-2 px-4 border-b">Receiver ID</th>
