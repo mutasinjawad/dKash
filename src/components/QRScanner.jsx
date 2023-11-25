@@ -22,23 +22,14 @@ const QRScanner = () => {
             console.warn(err);
         }
     }, []);
-    
-    const isUrl = (text) => {
-        try {
-          new URL(text);
-          return true;
-        } catch (error) {
-          return false;
-        }
-    };
 
     return (
         <div className='flex flex-col justify-center items-center'>
             {scanResult ? (
                 <div>
-                {isUrl(scanResult) ? (
+                {(scanResult) ? (
                     <div>
-                    Success: <a href={scanResult}>{scanResult}</a>
+                    Success: <a href={'http://'+scanResult}>{scanResult}</a>
                     </div>
                 ) : (
                     <div>Success: {scanResult}</div>
