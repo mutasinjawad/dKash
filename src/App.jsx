@@ -20,7 +20,7 @@ import Aos from "aos";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import "aos/dist/aos.css";
-
+import ContactTable  from "./components/ContactTable";
 function App() {
   useEffect(() => {
     Aos.init();
@@ -109,10 +109,13 @@ function App() {
             </>
             )}
             <Route path="/register" element={<Register />} />
+            <Route path="/contacts" element={<ContactTable />} />
+
           </Routes>
         </BrowserRouter>
       </div>
-    </>
+    
+         </>
   );
 }
 
