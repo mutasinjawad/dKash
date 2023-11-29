@@ -3,6 +3,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Layout from "./components/Admin/Layout";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
 import Profile from "./components/Profile";
@@ -42,73 +43,75 @@ function App() {
     <>
       <div>
         <BrowserRouter>
-          <Navbar token={token} setToken={setToken} setUser={setUser}/>
+          <Navbar token={token} setToken={setToken} setUser={setUser} user={user}/>
           <Routes>
-            <Route path="" element={<Home />} />
-            <Route
-              path="/login"
-              element={
-                <Login setToken={setToken} token={token} setUser={setUser} />
-              }
-            />
-            <Route 
-              path="/contact" 
-              element={<Contact token={token} user={user} setUser={setUser}/>} 
+              <Route index element={<Home />} />
+              <Route
+                path="/login"
+                element={
+                  <Login setToken={setToken} token={token} setUser={setUser} />
+                }
               />
-            {token &&(<><Route
-              path="/profile"
-              element={<Profile token={token} user={user} setUser={setUser} />}
-            />
-            <Route
-              path="/home"
-              element={<UserHome token={token} user={user} setUser={setUser} />}
-            />
-            <Route
-              path="/add"
-              element={<AddMoney token={token} user={user} setUser={setUser} />}
-            />
-            <Route
-              path="/send"
-              element={
-                <SendMoney token={token} user={user} setUser={setUser} />
-              }
-            />
-            <Route
-              path="/qr"
-              element={<QRGenerator token={token} user={user} setUser={setUser} />}
-            />
-            <Route 
-              path="/slide" 
-              element={<SlideOver />} 
-            />
-            <Route
-              path="/scan"
-              element={<QRScanner />} 
-            />
-            <Route
-              path="/cashout"
-              element={
-                <Cashout token={token} user={user} setUser={setUser} />
-              }
-            />
-            <Route
-              path="/payment"
-              element={
-                <Payment token={token} user={user} setUser={setUser} />
-              }
-            />
-            <Route
-              path="/edit"
-              element={
-                <ProfileEdit token={token} user={user} setUser={setUser} />
-              }
-            />
-            <Route 
-               path="/table" 
-               element={<TanStackTable token={token} user={user} setUser={setUser}/>} />
-            </>
-            )}
-            <Route path="/register" element={<Register />} />
+              <Route 
+                path="/contact" 
+                element={<Contact token={token} user={user} setUser={setUser}/>} 
+                />
+              {token &&(<><Route
+                path="/profile"
+                element={<Profile token={token} user={user} setUser={setUser} />}
+              />
+              <Route
+                path="/home"
+                element={<UserHome token={token} user={user} setUser={setUser} />}
+              />
+              <Route
+                path="/add"
+                element={<AddMoney token={token} user={user} setUser={setUser} />}
+              />
+              <Route
+                path="/send"
+                element={
+                  <SendMoney token={token} user={user} setUser={setUser} />
+                }
+              />
+              <Route
+                path="/qr"
+                element={<QRGenerator token={token} user={user} setUser={setUser} />}
+              />
+              <Route 
+                path="/slide" 
+                element={<SlideOver />} 
+              />
+              <Route
+                path="/scan"
+                element={<QRScanner />} 
+              />
+              <Route
+                path="/cashout"
+                element={
+                  <Cashout token={token} user={user} setUser={setUser} />
+                }
+              />
+              <Route
+                path="/payment"
+                element={
+                  <Payment token={token} user={user} setUser={setUser} />
+                }
+              />
+              <Route
+                path="/edit"
+                element={
+                  <ProfileEdit token={token} user={user} setUser={setUser} />
+                }
+              />
+              <Route 
+                path="/table" 
+                element={<TanStackTable token={token} user={user} setUser={setUser}/>} 
+              />
+              </>
+              )}
+            <Route path="/register" element={<Register token={token} setToken={setToken} setUser={setUser}/>} />
+            <Route path="/admin/*" element={<Layout token={token} user={user} setUser={setUser}/>} />
           </Routes>
         </BrowserRouter>
       </div>

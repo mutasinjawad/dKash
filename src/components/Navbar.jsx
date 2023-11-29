@@ -1,15 +1,18 @@
 import React, { useRef, useEffect } from "react";
 import Logo from "../assets/final.png";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import defaultPic from '../assets/profile.png';
 import { useState } from "react";
+import host from "../api";
 
-const Navbar = ({setToken, setUser, token}) => {
+const Navbar = ({setToken, setUser, user, token}) => {
   let params = useParams();
   let { name } = params;
   const navigate = useNavigate();
 
   const headerRef = useRef(null);
   const menuRef = useRef(null);
+  const [profilePicSrc] = useState(defaultPic);
 
   const toggleSlideOver = () => {
     document.getElementById('slideover-container').classList.toggle('invisible');
@@ -155,8 +158,8 @@ const Navbar = ({setToken, setUser, token}) => {
               </button>
             </Link>)}
 
-            {token && (<button onClick={toggleSlideOver} className="flex justify-center items-center text-smallTextColor font-[600] border border-solid border-smallTextColor w-[40px] h-[40px] rounded-full hover:bg-smallTextColor hover:text-white ease-in duration-300">
-              <i class="ri-user-line"></i>
+            {token && (<button onClick={toggleSlideOver} className="flex justify-center items-center border w-[45px] h-[45px] rounded-full">
+              <img className="rounded-full" src={user.picture ? user.picture : profilePicSrc} alt="/" />
             </button>)}
 
             {/* =====================slide over==================== */}

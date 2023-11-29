@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import host from "../api";
-const Register = () => {
+const Register = ({token, setToken, setUser}) => {
   const [uName, setUName] = useState("");
   const [phone, setPhone] = useState("");
   const [pin, setPin] = useState("");
   const [cPin, setCPin] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -32,8 +34,17 @@ const Register = () => {
         },
         body: JSON.stringify(form),
       })
-        .then((data) => {navigate("/home")})
-        .catch((err) => console.log(err));
+      .then((data) => data.text())
+      .then((t) => {
+        localStorage.setItem("token", t);
+        setToken(t);
+        const user = jwtDecode(t);
+        setUser(user);
+      })
+      .then(() => {
+        navigate("/home");
+      })
+      .catch((err) => console.log(err));
     }
   };
   return (
