@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import host from "../api";
 // import SendMoney from './SendMoney';
 
 const People = [
@@ -86,14 +86,6 @@ const navigate = useNavigate(); // Initialize history for navigation
 
   return (
     <div>
-      <button
-        type="button"
-        className="text-xs leading-5 text-white bg-green-500 hover:bg-green-600 py-1 px-2 rounded mb-4"
-        onClick={() => setShowForm(true)}
-      >
-        Add contact
-      </button>
-
       {/* add to the contact table start; */}
       {showForm && (
         <div className="mb-4">
@@ -156,6 +148,13 @@ const navigate = useNavigate(); // Initialize history for navigation
           </li>
         ))}
       </ul>
+      <button
+        type="button"
+        className="text-xs leading-5 text-white bg-green-500 hover:bg-green-600 py-1 px-2 rounded mb-4"
+        onClick={() => setShowForm(true)}
+      >
+        Add contact
+      </button>
     </div>
   );
 };

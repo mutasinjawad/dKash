@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Layout from "./components/Admin/Layout";
+import Dashboard from "./components/Admin/Dashboard";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
 import Profile from "./components/Profile";
@@ -43,7 +44,7 @@ function App() {
     <>
       <div>
         <BrowserRouter>
-          <Navbar token={token} setToken={setToken} setUser={setUser} user={user}/>
+          {/* {user.type !== 'admin' ? <Navbar token={token} setToken={setToken} setUser={setUser} user={user}/> : null} */}
           <Routes>
               <Route index element={<Home />} />
               <Route
@@ -111,9 +112,12 @@ function App() {
               </>
               )}
             <Route path="/register" element={<Register token={token} setToken={setToken} setUser={setUser}/>} />
-            <Route path="/admin/*" element={<Layout token={token} user={user} setUser={setUser}/>} />
             <Route path="/contacts" element={<ContactTable />} />
-
+          </Routes>
+          <Routes>
+            <Route path="/admin" element={<Layout token={token} user={user} setUser={setUser}/>}>
+              <Route path="dashboard" element={<Dashboard />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </div>

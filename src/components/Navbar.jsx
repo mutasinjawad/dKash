@@ -201,7 +201,7 @@ const Navbar = ({setToken, setUser, user, token}) => {
                       </button>
                     </Link>
                     <button
-                        onClick={() => {localStorage.removeItem('token'); setToken(false); setUser(false); navigate('/register')}} 
+                        onClick={() => {localStorage.removeItem('token'); setToken(false); setUser(false); navigate('/login')}} 
                         className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
                         <i class="ri-logout-box-r-line"></i>
                         <h1 className="ml-[15px]">Log Out</h1>
