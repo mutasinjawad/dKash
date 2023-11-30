@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import host from "../api";
 // import SendMoney from './SendMoney';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const People = [
   {
     name: 'Leslie Alexander',
@@ -51,47 +54,122 @@ const defaultAvatarUrl =
 
 const ContactTable = () => {
   const [showForm, setShowForm] = useState(false);
+  const [showFavoriteForm, setShowFavoriteForm] = useState(false);
   const [newPerson, setNewPerson] = useState({
     name: '',
     phone: '',
   });
 
-const navigate = useNavigate(); // Initialize history for navigation
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewPerson({ ...newPerson, [name]: value });
   };
 
-  const handleAddContact = () => {
+  const handleAddContact = (isFavorite = false) => {
+    // Check if both name and phone are not empty
+    if (newPerson.name.trim() === '' || newPerson.phone.trim() === '') {
+      toast.warn('You Must Enter Name and Phone Number', {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      });
+
+      // Reset the form
+      setNewPerson({
+        name: '',
+        phone: '',
+      });
+
+      return;
+    }
+
     // Add the new person to the People array
     People.push({
       name: newPerson.name,
       phone: newPerson.phone,
       imageUrl: defaultAvatarUrl,
+      isFavorite: isFavorite,
     });
 
-    // Reset the form and hide it
+    toast.success(' Success! ', {
+      position: 'top-center',
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+    if (isFavorite === false){
+      setShowForm((prevShowForm) => !prevShowForm);
+    }else{
+      setShowFavoriteForm((prevShowForm) => !prevShowForm);
+    }
+    
+    
+    // Reset the form
     setNewPerson({
       name: '',
       phone: '',
     });
-    setShowForm(false);
+
+  };
+
+  const handleToggleFavorite = (phone) => {
+    const updatedPeople = People.map((person) =>
+      person.phone === phone ? { ...person, isFavorite: !person.isFavorite } : person
+    );
+
+    // Update the state to re-render the component
+    People.length = 0;
+    People.push(...updatedPeople);
   };
 
   const handleSendMoney = () => {
-    // Navigate to the SendMoney component
-    navigate("/send");
+    navigate('/send');
   };
 
   return (
     <div>
-      {/* add to the contact table start; */}
+      <button
+        type="button"
+        className="text-xs leading-5 text-white bg-green-500 hover:bg-green-600 py-1 px-2 rounded mb-4"
+        onClick={() => setShowForm((prevShowForm) => !prevShowForm)}
+      >
+        Add contact
+      </button>
+      <button
+        type="button"
+        className="text-xs leading-5 text-white bg-yellow-500 hover:bg-yellow-600 py-1 px-2 rounded mb-4 ml-2"
+        onClick={() => setShowFavoriteForm((prevShowForm) => !prevShowForm)}
+      >
+        Add favorite contact
+      </button>
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+
+      {/* Add contact form */}
       {showForm && (
         <div className="mb-4">
-          <label className="block text-sm font-semibold leading-5 text-gray-700">
-            Name
-          </label>
+          <label className="block text-sm font-semibold leading-5 text-gray-700">Name</label>
           <input
             type="text"
             name="name"
@@ -100,9 +178,7 @@ const navigate = useNavigate(); // Initialize history for navigation
             className="mt-1 p-2 w-full border rounded-md"
           />
 
-          <label className="block text-sm font-semibold leading-5 text-gray-700 mt-2">
-            Phone
-          </label>
+          <label className="block text-sm font-semibold leading-5 text-gray-700 mt-2">Phone</label>
           <input
             type="text"
             name="phone"
@@ -113,15 +189,50 @@ const navigate = useNavigate(); // Initialize history for navigation
 
           <button
             type="button"
-            onClick={handleAddContact}
+            onClick={() => handleAddContact(false)} // Pass false for isFavorite
             className="mt-4 text-xs leading-5 text-white bg-blue-500 hover:bg-blue-600 py-1 px-2 rounded"
           >
             Add
           </button>
         </div>
       )}
+
+      {/* Add favorite contact form */}
+      {showFavoriteForm && (
+        <div className="mb-4">
+          <label className="block text-sm font-semibold leading-5 text-gray-700">Name</label>
+          <input
+            type="text"
+            name="name"
+            value={newPerson.name}
+            onChange={handleInputChange}
+            className="mt-1 p-2 w-full border rounded-md"
+          />
+
+          <label className="block text-sm font-semibold leading-5 text-gray-700 mt-2">Phone</label>
+          <input
+            type="text"
+            name="phone"
+            value={newPerson.phone}
+            onChange={handleInputChange}
+            className="mt-1 p-2 w-full border rounded-md"
+          />
+
+          <button
+            type="button"
+            onClick={() => handleAddContact(true)} // Pass true for isFavorite
+            className="mt-4 text-xs leading-5 text-white bg-yellow-500 hover:bg-yellow-600 py-1 px-2 rounded"
+            
+          >
+            Add as Favorite
+          </button>
+
+        </div>
+      )}
+
       {/* add to the contact table end; */}
 
+      
       <ul role="list" className="divide-y divide-gray-100 mx-10">
         {People.map((person) => (
           <li key={person.phone} className="flex justify-between items-center gap-x-2 py-5">
@@ -132,29 +243,40 @@ const navigate = useNavigate(); // Initialize history for navigation
                 alt=""
               />
               <div className="min-w-0 flex-auto">
-                <p className="text-sm font-semibold leading-6 text-gray-900">{person.name}</p>
+                <p className="text-sm font-semibold leading-6 text-gray-900">
+                  {person.name}{' '}
+                  {person.isFavorite && (
+                    <span className="text-yellow-500" title="Favorite">
+                      ⭐
+                    </span>
+                  )}
+                </p>
                 <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.phone}</p>
               </div>
             </div>
-            <div>
+            <div className="flex items-center gap-x-2">
               <button
                 type="button"
                 className="text-xs leading-5 text-white bg-blue-500 hover:bg-blue-600 py-1 px-2 rounded"
-                onClick={handleSendMoney} // Call handleSendMoney when the button is clicked
+                onClick={handleSendMoney}
               >
                 Send Money
               </button>
+              {/* {showFavoriteForm && (
+                <button
+                  type="button"
+                  className={`text-xs leading-5 text-white ${
+                    person.isFavorite ? 'bg-yellow-500' : null
+                  } hover:bg-yellow-600 py-1 px-2 rounded`}
+                  onClick={() => handleToggleFavorite(person.phone)}
+                >
+                  {person.isFavorite ? 'Remove Favorite' : 'Add as Favorite'}
+                </button>
+              )} */}
             </div>
           </li>
         ))}
       </ul>
-      <button
-        type="button"
-        className="text-xs leading-5 text-white bg-green-500 hover:bg-green-600 py-1 px-2 rounded mb-4"
-        onClick={() => setShowForm(true)}
-      >
-        Add contact
-      </button>
     </div>
   );
 };

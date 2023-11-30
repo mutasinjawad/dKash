@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = ({token, user, setUser}) => {
     const userName = user?.name || '';
@@ -12,6 +14,7 @@ const Contact = ({token, user, setUser}) => {
         emailjs.sendForm('service_pbsh42e', 'template_gwdz9br', form.current, 'I40d3DdcurOtLv4Ff')
         .then((result) => {
             console.log('Email sent successfully!');
+
         }, (error) => {
             console.log(error.text);
         });
