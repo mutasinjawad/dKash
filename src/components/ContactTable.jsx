@@ -63,6 +63,7 @@ const ContactTable = ( {token}) => {
   const [people, setPeople] = useState([]);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+
   useEffect(() => {
     fetch(host + "/contacts", {
       method: "GET",
@@ -87,7 +88,8 @@ const ContactTable = ( {token}) => {
 
   const handleSubmit = () => {
     const form = {
-      name, phone
+      contactName: name,
+      contactPhone: phone,
     };
           fetch(host + "/contacts", {
             method: "POST",
@@ -102,6 +104,24 @@ const ContactTable = ( {token}) => {
 
             .catch((err) => console.log(err));
       };
+  const handleFavSubmit = () => {
+    const form = {
+      contactName: name,
+      contactPhone: phone,
+    };
+          fetch(host + "/contacts/fav", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+                "token": token,
+            },
+            body: JSON.stringify(form),
+          })
+            .then((data) => data.text()).then((data) => {
+              console.log(data)})
+
+            .catch((err) => console.log(err));
+      }
 
 
 const defaultAvatarUrl =
@@ -264,7 +284,7 @@ const defaultAvatarUrl =
           <input
             type="text"
             name="name"
-            value={newPerson.name}
+            value={name}
             onChange={handleInputChange}
             className="mt-1 p-2 w-full border rounded-md"
           />
@@ -273,14 +293,14 @@ const defaultAvatarUrl =
           <input
             type="text"
             name="phone"
-            value={newPerson.phone}
+            value={phone}
             onChange={handleInputChange}
             className="mt-1 p-2 w-full border rounded-md"
           />
 
           <button
             type="button"
-            onClick={() => handleAddContact(true)} // Pass true for isFavorite
+            onClick={handleFavSubmit} // Pass true for isFavorite
             className="mt-4 text-xs leading-5 text-white bg-yellow-500 hover:bg-yellow-600 py-1 px-2 rounded"
           >
             Add as Favorite
@@ -302,7 +322,7 @@ const defaultAvatarUrl =
               <div className="min-w-0 flex-auto">
                 <p className="text-sm font-semibold leading-6 text-gray-900">
                   {person.contact_name}{' '}
-                  {person.isFavorite && (
+                  {person.is_fav === 1 && (
                     <span className="text-yellow-500" title="Favorite">
                       ⭐
                     </span>
