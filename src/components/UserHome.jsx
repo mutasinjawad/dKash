@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import defaultPic from '../assets/profile.png';
-import Footer from "./Footer";
+import UserMsgBtn from "./UserMsgBtn";
 import host from "../api";
 
 const UserHome = ({ token, user, setUser }) => {
@@ -152,6 +152,9 @@ const UserHome = ({ token, user, setUser }) => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className='fixed flex bottom-32 right-36'>
+          <UserMsgBtn token={token} user={user} setUser={setUser} />
         </div>
       </div>
 

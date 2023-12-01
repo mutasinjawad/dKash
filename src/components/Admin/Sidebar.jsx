@@ -1,5 +1,6 @@
 import React from 'react'
 import Logo from "../../assets/logo.png";
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
 
@@ -12,14 +13,18 @@ const Sidebar = () => {
         </div>
         <div className='flex-1'>
             <ul className='flex flex-col gap-2'>
-                <div className={linkClass}>
-                    <i class="ri-dashboard-line"></i>
-                    <li>Dashboard</li>
-                </div>
-                <div className={linkClass}>
-                    <i class="ri-user-6-line"></i>
-                    <li>Users</li>
-                </div>
+                <Link to='/admin'>
+                    <div className={linkClass}>
+                        <i class="ri-dashboard-line"></i>
+                        <li>Dashboard</li>
+                    </div>
+                </Link>
+                <Link to='/admin/users'>
+                    <div className={linkClass}>
+                        <i class="ri-user-6-line"></i>
+                        <li>Users</li>
+                    </div>
+                </Link>
                 <div className={linkClass}>
                     <i class="ri-bank-line"></i>
                     <li>Transactions</li>
@@ -30,12 +35,14 @@ const Sidebar = () => {
                 </div>
             </ul>
         </div>
-            <button
-                onClick={() => {localStorage.removeItem('token'); setToken(false); setUser(false); navigate('/login')}} 
-                className='flex items-center gap-2 p-2 text-[18px] rounded-[6px] cursor-pointer hover:bg-red-100 hover:text-red-500 hover:font-[700] duration-150 ease-in-out'>
-                    <i class="ri-logout-box-r-line"></i>
-                    <h1 >Log Out</h1>
-            </button>
+            <Link to='/login'>
+                <button
+                    onClick={() => {localStorage.removeItem('token'); setToken(false); setUser(false); navigate('/login')}} 
+                    className='flex items-center gap-2 p-2 text-[18px] rounded-[6px] cursor-pointer hover:bg-red-100 hover:text-red-500 hover:font-[700] duration-150 ease-in-out'>
+                        <i class="ri-logout-box-r-line"></i>
+                        <h1 >Log Out</h1>
+                </button>
+            </Link>
     </div>
   )
 }

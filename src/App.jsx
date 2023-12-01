@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Layout from "./components/Admin/Layout";
 import Dashboard from "./components/Admin/Dashboard";
+import UserView from "./components/Admin/UserView";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
 import Profile from "./components/Profile";
@@ -19,7 +20,8 @@ import ProfileEdit from "./components/ProfileEdit";
 import QRGenerator from "./components/QRGenerator";
 import QRScanner from "./components/QRScanner";
 import TanStackTable from "./components/TanStackTable";
-import SlideOver from "./components/SlideOver";
+import Chatroom from "./components/Admin/Chatroom";
+import UserChatBox from "./components/UserChatBox";
 import Aos from "aos";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -92,13 +94,13 @@ function App() {
                 path="/qr"
                 element={<QRGenerator token={token} user={user} setUser={setUser} />}
               />
-              <Route 
-                path="/slide" 
-                element={<SlideOver />} 
-              />
               <Route
                 path="/scan"
                 element={<QRScanner />} 
+              />
+              <Route  
+                path="/chat" 
+                element={<UserChatBox token={token} user={user} setUser={setUser}/>}
               />
               <Route
                 path="/cashout"
@@ -131,7 +133,9 @@ function App() {
           </Routes>
           <Routes>
             <Route path="/admin" element={<Layout token={token} user={user} setUser={setUser}/>}>
-              <Route path="dashboard" element={<Dashboard />} />
+              <Route index element={<Dashboard />} />
+              <Route path="users" element={<UserView token={token} user={user} setUser={setUser}/>} />
+              <Route path="chat" element={<Chatroom token={token} user={user} setUser={setUser}/>} />
             </Route>
           </Routes>
         </BrowserRouter>
