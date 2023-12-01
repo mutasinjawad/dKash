@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import host from "../api";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // const People = [
 //   {
@@ -18,13 +18,13 @@ import 'react-toastify/dist/ReactToastify.css';
 //     phone: '01827361321',
 //     imageUrl: '', // No image
 //   },
-  
+
 //   {
 //     name: 'Dries Vincent',
 //     phone: '01747146123',
 //     imageUrl:
 //       'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    
+
 //   },
 //   {
 //     name: 'Lindsay Walton',
@@ -41,35 +41,29 @@ import 'react-toastify/dist/ReactToastify.css';
 //   {
 //     name: 'Tom Cook',
 //     phone: '01927462719',
-   
+
 //     imageUrl:
 //       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    
+
 //   },
 
 // ];
 
 // const [name, setName] = useState('');
 
-
-
-
-
-
-
-const ContactTable = ( {token}) => {
+const ContactTable = ({ token }) => {
   const [showForm, setShowForm] = useState(false);
   const [showFavoriteForm, setShowFavoriteForm] = useState(false);
   const [people, setPeople] = useState([]);
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
 
   useEffect(() => {
     fetch(host + "/contacts", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-          "token": token,
+        token: token,
       },
     })
       .then((data) => data.json())
@@ -85,85 +79,85 @@ const ContactTable = ( {token}) => {
   //   phone: '',
   // });
 
-
   const handleSubmit = () => {
     const form = {
       contactName: name,
       contactPhone: phone,
     };
-          fetch(host + "/contacts", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-                "token": token,
-            },
-            body: JSON.stringify(form),
-          })
-            .then((data) => data.text()).then((data) => {
-              console.log(data)})
+    fetch(host + "/contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        token: token,
+      },
+      body: JSON.stringify(form),
+    })
+      .then((data) => data.text())
+      .then((data) => {
+        setPeople([...people, { contact_name: name, contact_phone: phone }]);
+      })
 
-            .catch((err) => console.log(err));
-      };
+      .catch((err) => console.log(err));
+  };
   const handleFavSubmit = () => {
     const form = {
       contactName: name,
       contactPhone: phone,
     };
-          fetch(host + "/contacts/fav", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-                "token": token,
-            },
-            body: JSON.stringify(form),
-          })
-            .then((data) => data.text()).then((data) => {
-              console.log(data)})
+    fetch(host + "/contacts/fav", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        token: token,
+      },
+      body: JSON.stringify(form),
+    })
+      .then((data) => data.text())
+      .then((data) => {
+        console.log(data);
+      })
 
-            .catch((err) => console.log(err));
-      }
+      .catch((err) => console.log(err));
+  };
 
-
-const defaultAvatarUrl =
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDwmG52pVI5JZfn04j9gdtsd8pAGbqjjLswg&usqp=CAU';
+  const defaultAvatarUrl =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDwmG52pVI5JZfn04j9gdtsd8pAGbqjjLswg&usqp=CAU";
 
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'name') {
+    if (name === "name") {
       setName(value);
-    } else if (name === 'phone'){
+    } else if (name === "phone") {
       setPhone(value);
-    } 
-
-    
+    }
   };
 
   const handleAddContact = (isFavorite = false) => {
     // Check if both name and phone are not empty
-    if (newPerson.name.trim() === '' || newPerson.phone.trim() === '') {
-      if (isFavorite === false){
-      setShowForm((prevShowForm) => !prevShowForm);
-      }else{
+    if (newPerson.name.trim() === "" || newPerson.phone.trim() === "") {
+      if (isFavorite === false) {
+        setShowForm((prevShowForm) => !prevShowForm);
+      } else {
         setShowFavoriteForm((prevShowForm) => !prevShowForm);
       }
-      
-      toast.warn('You Must Enter Name and Phone Number', {
-        position: 'top-right',
+
+      toast.warn("You Must Enter Name and Phone Number", {
+        position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'dark',
+        theme: "dark",
       });
 
       // Reset the form
       setNewPerson({
-        name: '',
-        phone: '',
+        name: "",
+        phone: "",
       });
 
       return;
@@ -177,29 +171,27 @@ const defaultAvatarUrl =
       isFavorite: isFavorite,
     });
 
-    toast.success(' Success! ', {
-      position: 'top-right',
+    toast.success(" Success! ", {
+      position: "top-right",
       autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: 'light',
+      theme: "light",
     });
-    if (isFavorite === false){
+    if (isFavorite === false) {
       setShowForm((prevShowForm) => !prevShowForm);
-    }else{
+    } else {
       setShowFavoriteForm((prevShowForm) => !prevShowForm);
     }
-    
-    
+
     // Reset the form
     // setNewPerson({
     //   name: '',
     //   phone: '',
     // });
-
   };
 
   // const handleToggleFavorite = (phone) => {
@@ -212,8 +204,8 @@ const defaultAvatarUrl =
   //   People.push(...updatedPeople);
   // };
 
-  const handleSendMoney = () => {
-    navigate('/send');
+  const handleSendMoney = (phone) => {
+    navigate("/send", { state: { phone: phone } });
   };
 
   return (
@@ -222,7 +214,6 @@ const defaultAvatarUrl =
         type="button"
         className="text-xs leading-5 text-white bg-green-500 hover:bg-green-600 py-1 px-2 rounded mb-4"
         onClick={() => setShowForm((prevShowForm) => !prevShowForm)}
-
       >
         Add contact
       </button>
@@ -249,7 +240,9 @@ const defaultAvatarUrl =
       {/* Add contact form */}
       {showForm && (
         <div className="mb-4">
-          <label className="block text-sm font-semibold leading-5 text-gray-700">Name</label>
+          <label className="block text-sm font-semibold leading-5 text-gray-700">
+            Name
+          </label>
           <input
             type="text"
             name="name"
@@ -258,7 +251,9 @@ const defaultAvatarUrl =
             className="mt-1 p-2 w-full border rounded-md"
           />
 
-          <label className="block text-sm font-semibold leading-5 text-gray-700 mt-2">Phone</label>
+          <label className="block text-sm font-semibold leading-5 text-gray-700 mt-2">
+            Phone
+          </label>
           <input
             type="text"
             name="phone"
@@ -280,7 +275,9 @@ const defaultAvatarUrl =
       {/* Add favorite contact form */}
       {showFavoriteForm && (
         <div className="mb-4">
-          <label className="block text-sm font-semibold leading-5 text-gray-700">Name</label>
+          <label className="block text-sm font-semibold leading-5 text-gray-700">
+            Name
+          </label>
           <input
             type="text"
             name="name"
@@ -289,7 +286,9 @@ const defaultAvatarUrl =
             className="mt-1 p-2 w-full border rounded-md"
           />
 
-          <label className="block text-sm font-semibold leading-5 text-gray-700 mt-2">Phone</label>
+          <label className="block text-sm font-semibold leading-5 text-gray-700 mt-2">
+            Phone
+          </label>
           <input
             type="text"
             name="phone"
@@ -305,14 +304,16 @@ const defaultAvatarUrl =
           >
             Add as Favorite
           </button>
-
         </div>
       )}
 
       {/* add to the contact table end; */}
       <ul role="list" className="divide-y divide-gray-100 mx-10">
         {people.map((person) => (
-          <li key={person.contact_phone} className="flex justify-between items-center gap-x-2 py-5">
+          <li
+            key={person.contact_phone}
+            className="flex justify-between items-center gap-x-2 py-5"
+          >
             <div className="flex items-center gap-x-2">
               <img
                 className="h-12 w-12 flex-none rounded-full bg-gray-50"
@@ -321,21 +322,23 @@ const defaultAvatarUrl =
               />
               <div className="min-w-0 flex-auto">
                 <p className="text-sm font-semibold leading-6 text-gray-900">
-                  {person.contact_name}{' '}
+                  {person.contact_name}{" "}
                   {person.is_fav === 1 && (
                     <span className="text-yellow-500" title="Favorite">
                       ⭐
                     </span>
                   )}
                 </p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.contact_phone}</p>
+                <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                  {person.contact_phone}
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-x-2">
               <button
                 type="button"
                 className="text-xs leading-5 text-white bg-blue-500 hover:bg-blue-600 py-1 px-2 rounded"
-                onClick={handleSendMoney}
+                onClick={() => handleSendMoney(person.contact_phone)}
               >
                 Send Money
               </button>
@@ -351,7 +354,6 @@ const defaultAvatarUrl =
                   {person.isFavorite ? 'Remove Favorite' : 'Add as Favorite'}
                 </button>
               )} */}
-              
             </div>
           </li>
         ))}
