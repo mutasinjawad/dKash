@@ -37,7 +37,7 @@ const Contact = ({token, user, setUser}) => {
             <div className='container'>
                 <h2 className='text-headingColor font-[700] text-[2.5rem] mb-8'>Get in Touch</h2>
                 <div className='md:flex justify-between items-center'>
-                    <div className='w-full my-8 md:mt-0 sm:h-[420px] lg:flex items-center bg-indigo-100 px-4 lg:px-8 py-8 rounded-[30px]'>
+                    <div className='w-full mt-0 sm:h-[420px] lg:flex items-center bg-indigo-100 px-4 lg:px-8 py-8 rounded-[30px]'>
                         <form className='w-full' ref={form} onSubmit={sendEmail}>
                             <div className='mb-5'>
                                 <input 
@@ -70,7 +70,8 @@ const Contact = ({token, user, setUser}) => {
                                     type="text"
                                     placeholder='Write your message'
                                     name='message'
-                                    className='w-full p-3 focus:outline-none rounded-[15px]' 
+                                    className='w-full p-3 focus:outline-none rounded-[15px]'
+                                    style={{ resize: 'none' }} 
                                 />
                             </div>
                             <button className='w-full p-3 focus:outline-none rounded-full bg-smallTextColor text-white hover:bg-headingColor text-center ease-linear duration-150'>
