@@ -59,7 +59,7 @@ function App() {
     <>
       <div>
         <BrowserRouter>
-          {user.type !== 'admin' ? <Navbar token={token} setToken={setToken} setUser={setUser} user={user}/> : null}
+          {/* {user.type !== 'admin' ? <Navbar token={token} setToken={setToken} setUser={setUser} user={user}/> : null} */}
           <Routes>
               <Route index element={<Home />} />
               <Route

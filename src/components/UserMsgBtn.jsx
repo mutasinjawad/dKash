@@ -1,11 +1,12 @@
 import host from "../api";
 import {useEffect, useState} from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserMsgBtn = ({token, user, setUser}) => {
 
     const [subject, setSubject] = useState([])
     const [message, setMessage] = useState('')
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -31,9 +32,7 @@ const UserMsgBtn = ({token, user, setUser}) => {
             }),
         })
         .then((data) => data.json())
-        .then((data) => {
-            console.log(data);
-        })
+        .then(() => toggleMessageIcon)
         .catch((err) => console.log(err));
     }
 

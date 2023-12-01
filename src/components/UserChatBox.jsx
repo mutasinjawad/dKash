@@ -28,7 +28,7 @@ const UserChatBox = ({token, user, setUser}) => {
     return (
       <>
         {messages.map((message) => (
-                <UserMessage key={message.id} message={message} user={user} selectedChat={selectedChat} />
+                <UserMessage key={message.id} message={message} user={user} />
               ))}
       </>
     )

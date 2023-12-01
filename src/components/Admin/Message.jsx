@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Message = ({ message, user, selectedChat }) => {
+const Message = ({ message, user }) => {
   return (
     <div className='w-full'>
-        {selectedChat.user === user.user ? <div className='chat chat-end'>
+        {message.sender === user.phone ? <div className='chat chat-end'>
             <div className='chat-bubble chat-bubble-info text-[15px]'>
                 {message.message}
             </div>
