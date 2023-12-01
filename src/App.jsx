@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import host from "./api";
+
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -23,6 +25,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import "aos/dist/aos.css";
 import ContactTable  from "./components/ContactTable";
+import TakeLoan from "./components/TakeLoan";
+import Recharge from "./components/Recharge";
 function App() {
   useEffect(() => {
     Aos.init();
@@ -32,8 +36,17 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       setToken(token);
-      const user = jwtDecode(token);
-      setUser(user);
+      fetch (host + "/profile", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          token: token,
+        },
+      })
+      .then((data) => data.json())
+      .then((data) => {
+        setUser(data);
+      })
     }
   }, []);
 
@@ -44,7 +57,7 @@ function App() {
     <>
       <div>
         <BrowserRouter>
-          {/* {user.type !== 'admin' ? <Navbar token={token} setToken={setToken} setUser={setUser} user={user}/> : null} */}
+          {user.type !== 'admin' ? <Navbar token={token} setToken={setToken} setUser={setUser} user={user}/> : null}
           <Routes>
               <Route index element={<Home />} />
               <Route
@@ -112,7 +125,9 @@ function App() {
               </>
               )}
             <Route path="/register" element={<Register token={token} setToken={setToken} setUser={setUser}/>} />
-            <Route path="/contacts" element={<ContactTable />} />
+            <Route path="/contacts" element={<ContactTable token={token} setToken={setToken} user={user}/>} />
+            <Route path="/loan" element={<TakeLoan token={token} user={user} setUser={setUser}/>} />
+            <Route path="/recharge" element={<Recharge token={token} user={user} setUser={setUser}/>} />
           </Routes>
           <Routes>
             <Route path="/admin" element={<Layout token={token} user={user} setUser={setUser}/>}>

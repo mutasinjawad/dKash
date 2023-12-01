@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import host from "../api";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Login = ({ setToken, token, setUser }) => {
   const [phone, setPhone] = useState("");
   const [pin, setpin] = useState("");
@@ -37,8 +40,21 @@ const Login = ({ setToken, token, setUser }) => {
       })
       .then(() => {
         navigate("/home");
+        
+
       })
       .catch((err) => console.log(err));
+      toast.warn('Log in Failed!', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+
   };
 
   return (
@@ -85,6 +101,18 @@ const Login = ({ setToken, token, setUser }) => {
         >
           Login
         </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          />
       </div>
     </div>
   );

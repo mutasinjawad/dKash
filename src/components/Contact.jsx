@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,9 +15,20 @@ const Contact = ({token, user, setUser}) => {
         emailjs.sendForm('service_pbsh42e', 'template_gwdz9br', form.current, 'I40d3DdcurOtLv4Ff')
         .then((result) => {
             console.log('Email sent successfully!');
+            toast.success('Email Sent Successfully!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
 
         }, (error) => {
             console.log(error.text);
+
         });
     };
 
@@ -64,6 +76,18 @@ const Contact = ({token, user, setUser}) => {
                             <button className='w-full p-3 focus:outline-none rounded-full bg-smallTextColor text-white hover:bg-headingColor text-center ease-linear duration-150'>
                                 Send Email
                             </button>
+                            <ToastContainer
+                                position="top-center"
+                                autoClose={1500}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="dark"
+                            />
                         </form>
                     </div>
                 </div>
