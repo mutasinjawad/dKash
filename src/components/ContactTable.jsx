@@ -12,9 +12,9 @@ const ContactTable = ({ token }) => {
   const [showFavoriteForm, setShowFavoriteForm] = useState(false);
   const [people, setPeople] = useState([]);
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [favname, setFavName] = useState("");
   const [favphone, setFavPhone] = useState("");
-  const [phone, setPhone] = useState("");
 
   useEffect(() => {
     fetch(host + "/contacts", {
@@ -187,6 +187,7 @@ const ContactTable = ({ token }) => {
     const form = {
       contactName: favname,
       contactPhone: favphone,
+      isFavorite: 1,
     };
 
     fetch(host + "/contacts/fav", {
@@ -265,14 +266,21 @@ const ContactTable = ({ token }) => {
       <button
         type="button"
         className="text-xs leading-5 text-white bg-green-500 hover:bg-green-600 py-1 px-2 rounded mb-4"
-        onClick={() => setShowForm((prevShowForm) => !prevShowForm)}
+        onClick={() => {
+    setShowForm((prevShowForm) => !prevShowForm);
+    setShowFavoriteForm(false);
+  }}
+  
       >
         Add contact
       </button>
       <button
         type="button"
         className="text-xs leading-5 text-white bg-yellow-500 hover:bg-yellow-600 py-1 px-2 rounded mb-4 ml-2"
-        onClick={() => setShowFavoriteForm((prevShowForm) => !prevShowForm)}
+      onClick={() => {
+        setShowFavoriteForm((prevShowForm) => !prevShowForm);
+        setShowForm(false); 
+      }}
       >
         Add favorite contact
       </button>
@@ -332,7 +340,7 @@ const ContactTable = ({ token }) => {
           </label>
           <input
             type="text"
-            name="name"
+            name="favname"
             value={favname}
             onChange={handleInputChange}
             className="mt-1 p-2 w-full border rounded-md"
@@ -343,7 +351,7 @@ const ContactTable = ({ token }) => {
           </label>
           <input
             type="text"
-            name="phone"
+            name="favphone"
             value={favphone}
             onChange={handleInputChange}
             className="mt-1 p-2 w-full border rounded-md"
