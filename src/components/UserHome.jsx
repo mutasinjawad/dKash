@@ -115,7 +115,7 @@ const UserHome = ({ token, user, setUser }) => {
                       <div className="ml-10 sm:mt-0">
                           <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
                           <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
-                              Mobile Recharge <i class="ri-secure-payment-line"></i>
+                              Mobile Recharge <i class="ri-logout-circle-r-line"></i>
                           </h3>
                           </div>
                       </div>

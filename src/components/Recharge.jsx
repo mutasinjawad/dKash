@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const Recharge = ({token, user}) => {
-  //const [user.balance, setuser.balance] = useState(10000); // Set an initial account balance
+
   const [rechargeAmount, setRechargeAmount] = useState(0);
   const [mobileNumber, setMobileNumber] = useState('');
   const navigate = useNavigate();
@@ -72,12 +72,9 @@ const Recharge = ({token, user}) => {
         theme: "dark",
       });
     } else {
-      // Perform recharge logic here
-    //   setuser.balance(user.balance - amount);
+
       setRechargeAmount('');
       setMobileNumber('');
-      // Additional logic for making an API call or updating state as needed
-      // For example: host.post('/recharge', { mobileNumber, amount });
       handleSubmit();
     }
   };

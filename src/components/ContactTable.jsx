@@ -6,56 +6,14 @@ import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// const People = [
-//   {
-//     name: 'Leslie Alexander',
-//     phone: '01818288616',
-//     imageUrl:
-//       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//   },
-//   {
-//     name: 'Michael Foster',
-//     phone: '01827361321',
-//     imageUrl: '', // No image
-//   },
-
-//   {
-//     name: 'Dries Vincent',
-//     phone: '01747146123',
-//     imageUrl:
-//       'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-
-//   },
-//   {
-//     name: 'Lindsay Walton',
-//     phone: '01923412543',
-//     imageUrl:
-//       'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//   },
-//   {
-//     name: 'Courtney Henry',
-//     phone: '01632495323',
-//     imageUrl:
-//       'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//   },
-//   {
-//     name: 'Tom Cook',
-//     phone: '01927462719',
-
-//     imageUrl:
-//       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-
-//   },
-
-// ];
-
-// const [name, setName] = useState('');
 
 const ContactTable = ({ token }) => {
   const [showForm, setShowForm] = useState(false);
   const [showFavoriteForm, setShowFavoriteForm] = useState(false);
   const [people, setPeople] = useState([]);
   const [name, setName] = useState("");
+  const [favname, setFavName] = useState("");
+  const [favphone, setFavPhone] = useState("");
   const [phone, setPhone] = useState("");
 
   useEffect(() => {
@@ -74,16 +32,74 @@ const ContactTable = ({ token }) => {
       .catch((err) => console.log(err));
   }, [token]);
 
-  // const [newPerson, setNewPerson] = useState({
-  //   name: '',
-  //   phone: '',
-  // });
+
+  const isPhoneNumberExists = (phoneNumber) => {
+    return people.some((person) => person.contact_phone === phoneNumber);
+  };
+
+  const validatePhoneNumber = (phoneNumber) => {
+    const validPrefixes = [
+      "+88018",
+      "+88017",
+      "+88016",
+      "+88019",
+      "+88015",
+      "+88014",
+      "+88013",
+    ];
+
+    const isValidPrefix = validPrefixes.some((prefix) =>
+      phoneNumber.startsWith(prefix)
+    );
+
+    return isValidPrefix && phoneNumber.length === 14;
+  };
+
 
   const handleSubmit = () => {
+    if (!validatePhoneNumber(phone)) {
+      toast.error('Invalid phone number. Please enter a valid number.', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+
+      
+      setName("");
+      setPhone("");
+      setShowForm(false);
+      return;
+    }
+
+    if (isPhoneNumberExists(phone)) {
+
+      toast.error('contact with this phone number already exists.', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+      
+      setName("");
+      setPhone("");
+      setShowForm(false);
+      return;
+    }
+
     const form = {
       contactName: name,
       contactPhone: phone,
     };
+
     fetch(host + "/contacts", {
       method: "POST",
       headers: {
@@ -95,15 +111,84 @@ const ContactTable = ({ token }) => {
       .then((data) => data.text())
       .then((data) => {
         setPeople([...people, { contact_name: name, contact_phone: phone }]);
+        toast.success('Contact added successfully!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+        
+        setName("");
+        setPhone("");
+        setShowForm(false);
       })
-
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast.error('Error adding contact. Please try again.', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+        
+        setName("");
+        setPhone("");
+        setShowForm(false);
+      
+      });
   };
+
   const handleFavSubmit = () => {
+    if (!validatePhoneNumber(favphone)) {
+      toast.error('Invalid phone number. Please enter a valid number.', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+      
+      setFavName("");
+      setFavPhone("");
+      setShowFavoriteForm(false);
+      return;
+    }
+
+    if (isPhoneNumberExists(favphone)) {
+
+      toast.error('Favorite contact with this phone number already exists.', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+      
+      setFavName("");
+      setFavPhone("");
+      setShowFavoriteForm(false);
+      return;
+    }
+
     const form = {
-      contactName: name,
-      contactPhone: phone,
+      contactName: favname,
+      contactPhone: favphone,
     };
+
     fetch(host + "/contacts/fav", {
       method: "POST",
       headers: {
@@ -114,10 +199,40 @@ const ContactTable = ({ token }) => {
     })
       .then((data) => data.text())
       .then((data) => {
-        console.log(data);
-      })
+        
+        setPeople([...people, { contact_name: favname, contact_phone: favphone }]);
+        toast.success('Favorite contact added successfully!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      
+      setFavName("");
+      setFavPhone("");
+      setShowFavoriteForm(false);
 
-      .catch((err) => console.log(err));
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error('Error adding favorite contact. Please try again.', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+      setFavName("");
+      setFavPhone("");
+      setShowFavoriteForm(false);
+      });
   };
 
   const defaultAvatarUrl =
@@ -131,78 +246,15 @@ const ContactTable = ({ token }) => {
       setName(value);
     } else if (name === "phone") {
       setPhone(value);
+    } else if (name === "favname") {
+      setFavName(value);
+    } else if (name === "favphone") {
+      setFavPhone(value);
     }
+
   };
 
-  const handleAddContact = (isFavorite = false) => {
-    // Check if both name and phone are not empty
-    if (newPerson.name.trim() === "" || newPerson.phone.trim() === "") {
-      if (isFavorite === false) {
-        setShowForm((prevShowForm) => !prevShowForm);
-      } else {
-        setShowFavoriteForm((prevShowForm) => !prevShowForm);
-      }
 
-      toast.warn("You Must Enter Name and Phone Number", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-
-      // Reset the form
-      setNewPerson({
-        name: "",
-        phone: "",
-      });
-
-      return;
-    }
-
-    // Add the new person to the People array
-    People.push({
-      name: newPerson.name,
-      phone: newPerson.phone,
-      imageUrl: defaultAvatarUrl,
-      isFavorite: isFavorite,
-    });
-
-    toast.success(" Success! ", {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    if (isFavorite === false) {
-      setShowForm((prevShowForm) => !prevShowForm);
-    } else {
-      setShowFavoriteForm((prevShowForm) => !prevShowForm);
-    }
-
-    // Reset the form
-    // setNewPerson({
-    //   name: '',
-    //   phone: '',
-    // });
-  };
-
-  // const handleToggleFavorite = (phone) => {
-  //   const updatedPeople = People.map((person) =>
-  //     person.phone === phone ? { ...person, isFavorite: !person.isFavorite } : person
-  //   );
-
-  //   // Update the state to re-render the component
-  //   People.length = 0;
-  //   People.push(...updatedPeople);
-  // };
 
   const handleSendMoney = (phone) => {
     navigate("/send", { state: { phone: phone } });
@@ -281,7 +333,7 @@ const ContactTable = ({ token }) => {
           <input
             type="text"
             name="name"
-            value={name}
+            value={favname}
             onChange={handleInputChange}
             className="mt-1 p-2 w-full border rounded-md"
           />
@@ -292,14 +344,14 @@ const ContactTable = ({ token }) => {
           <input
             type="text"
             name="phone"
-            value={phone}
+            value={favphone}
             onChange={handleInputChange}
             className="mt-1 p-2 w-full border rounded-md"
           />
 
           <button
             type="button"
-            onClick={handleFavSubmit} // Pass true for isFavorite
+            onClick={handleFavSubmit}
             className="mt-4 text-xs leading-5 text-white bg-yellow-500 hover:bg-yellow-600 py-1 px-2 rounded"
           >
             Add as Favorite
@@ -343,17 +395,7 @@ const ContactTable = ({ token }) => {
                 Send Money
               </button>
 
-              {/* {showFavoriteForm && (
-                <button
-                  type="button"
-                  className={`text-xs leading-5 text-white ${
-                    person.isFavorite ? 'bg-yellow-500' : 'bg-gray-500'
-                  } hover:bg-yellow-600 py-1 px-2 rounded`}
-                  onClick={() => handleToggleFavorite(person.phone)}
-                >
-                  {person.isFavorite ? 'Remove Favorite' : 'Add as Favorite'}
-                </button>
-              )} */}
+              
             </div>
           </li>
         ))}
