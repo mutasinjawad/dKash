@@ -187,21 +187,21 @@ const ContactTable = ({ token }) => {
     const form = {
       contactName: favname,
       contactPhone: favphone,
-      isFavorite: 1,
     };
+
 
     fetch(host + "/contacts/fav", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        token: token,
+         token: token,
       },
       body: JSON.stringify(form),
     })
       .then((data) => data.text())
       .then((data) => {
         
-        setPeople([...people, { contact_name: favname, contact_phone: favphone }]);
+        setPeople([...people, { contact_name: favname, contact_phone: favphone, is_fav: 1}]);
         toast.success('Favorite contact added successfully!', {
         position: "top-center",
         autoClose: 3000,
@@ -324,7 +324,7 @@ const ContactTable = ({ token }) => {
 
           <button
             type="button"
-            onClick={handleSubmit} // Pass false for isFavorite
+            onClick={handleSubmit} 
             className="mt-4 text-xs leading-5 text-white bg-blue-500 hover:bg-blue-600 py-1 px-2 rounded"
           >
             Add
