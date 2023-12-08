@@ -117,8 +117,8 @@ const UserHome = ({ token, user, setUser }) => {
                       </div>
                   </Link>
               )}
-              
-            </div>
+
+             </div>
 
           </div>
         
