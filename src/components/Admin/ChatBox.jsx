@@ -1,10 +1,10 @@
 import React from 'react'
+import SendMessage from './SendMessage'
 import Message from './Message'
 import MsgSubject from './MsgSubject'
 import host from '../../api'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import SendMessage from './SendMessage'
 
 const ChatBox = ({token, user, setUser}) => {
 

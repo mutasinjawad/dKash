@@ -71,7 +71,7 @@ const DashChart = ({ token }) => {
     ]
 
     useEffect(() => {
-        fetch (host + "/admin/transactions", {
+        fetch (host + "/admin/graph", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -83,7 +83,7 @@ const DashChart = ({ token }) => {
             setTransactions(data);
             console.log(data)
         })
-        .catch((err) => {console.log(err); console.log(token)});
+        .catch((err) => {console.log(err)});
       }, [token]);
       
   return (
@@ -94,7 +94,7 @@ const DashChart = ({ token }) => {
                 <LineChart 
                     width={500}
                     height={300}
-                    data={data}
+                    data={transactions}
                     margin={{
                         top: 20,
                         right: 10,
@@ -102,12 +102,11 @@ const DashChart = ({ token }) => {
                         bottom: 0
                     }}>
                     <CartesianGrid strokeDasharray="3 3 0 0" />
-                    <XAxis dataKey="name" stroke="#000000" />
+                    <XAxis dataKey="minute(date)" stroke="#000000" />
                     <YAxis stroke="#000000" />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="Income" stroke="#82ca9d" />
-                    <Line type="monotone" dataKey="Expense" stroke="#8884d8" />
+                    <Line type="monotone" dataKey="count" stroke="#82ca9d" />
                 </LineChart>
             </ResponsiveContainer>
         </div>

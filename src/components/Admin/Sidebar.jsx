@@ -41,7 +41,7 @@ const Sidebar = () => {
         </div>
             <Link to='/login'>
                 <button
-                    onClick={() => {localStorage.removeItem('token'); setToken(false); setUser(false); navigate('/login')}} 
+                    onClick={() => {localStorage.removeItem('token'); setToken(false); setUser(false); navigate('/login'); window.location.reload()}} 
                     className='flex items-center gap-2 p-2 text-[18px] rounded-[6px] cursor-pointer hover:bg-red-100 hover:text-red-500 hover:font-[700] duration-150 ease-in-out'>
                         <i class="ri-logout-box-r-line"></i>
                         <h1 >Log Out</h1>

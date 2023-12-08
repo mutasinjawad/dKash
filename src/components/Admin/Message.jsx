@@ -1,7 +1,8 @@
 import React from 'react'
 
 const Message = ({ message, user }) => {
-  return (
+
+    return (
     <div className='w-full'>
         {message.sender === user.phone ? <div className='chat chat-end'>
             <div className='chat-bubble chat-bubble-info text-[15px]'>

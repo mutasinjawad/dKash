@@ -5,14 +5,9 @@ import host from '../../api'
 const DashUserProfileChart = ({ token, user, setUser }) => {
 
     const [users, setUsers] = useState([])
-    const data = [
-        {name: 'User', value: 540},
-        {name: 'Agent', value: 620},
-        {name: 'Merchant', value: 210}
-    ]
 
     useEffect(() => {
-        fetch (host + "/admin/users", {
+        fetch (host + "/admin/users/counts", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -22,9 +17,8 @@ const DashUserProfileChart = ({ token, user, setUser }) => {
         .then((data) => data.json())
         .then((data) => {
             setUsers(data);
-            console.log(data)
         })
-        .catch((err) => {console.log(err); console.log(token)});
+        .catch((err) => {console.log(err);});
     }, [token]);
 
     const RADIAN = Math.PI / 180
@@ -49,16 +43,16 @@ const DashUserProfileChart = ({ token, user, setUser }) => {
             <ResoponsiveContainer width='100%' height={300}>
                 <PieChart width={400} height={300}>
                     <Pie 
-                    data={data}
-                    dataKey='value' 
-                    nameKey='name' 
+                    data={users}
+                    dataKey='count' 
+                    nameKey='type' 
                     cx='50%' cy='50%' 
                     outerRadius={105} 
                     fill='#8884d8'
                     labelLine={false}
                     label={renderCustomizedLabel} >
                         {
-                            data.map((_, index) => (<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />))
+                            users.map((_, index) => (<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />))
                         }
                     </Pie>
                     <Tooltip />

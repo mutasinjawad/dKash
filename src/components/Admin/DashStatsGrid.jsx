@@ -33,7 +33,7 @@ const DashStatsGrid = ({ token, user, setUser }) => {
             setTransactions(data);
             console.log(data)
         })
-        .catch((err) => {console.log(err); console.log(token)});
+        .catch((err) => {console.log(err)});
     }, [token]);
 
     const boxWrapper = 'bg-white rounded-md px-4 py-2 mr-4 flex-1 border border-gray-200 flex items-center'

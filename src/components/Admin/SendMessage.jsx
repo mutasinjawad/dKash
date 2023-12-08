@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import host from '../../api';
 
-const SendMessage = ({token, user, setUser, selectedChat}) => {
+const SendMessage = ({token, selectedChat}) => {
 
   const [value, setValue] = useState('')
   
@@ -18,7 +18,7 @@ const SendMessage = ({token, user, setUser, selectedChat}) => {
                 message: value,
                 id: selectedChat,
             }),
-          }).then((data) => data.text()).then((data) => {console.log(data); setValue('');})
+          }).then((data) => data.text()).then((data) => {setValue('');})
             .catch((err) => console.log(err));
     
   }

@@ -108,49 +108,6 @@ const Navbar = ({setToken, setUser, user, token}) => {
             </ul>
           </div>)}
 
-          {/* ========================loggedin===================== */}
-
-          {/* {token && (<div className="menu" ref={menuRef} onClick={toggleMenu}>
-            <ul className="flex items-center gap-10">
-              <li>
-                <a
-                  onClick={handleClick}
-                  className="text-smallTextColor font-[600]"
-                  href="#home"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={handleClick}
-                  className="text-smallTextColor font-[600]"
-                  href="#about"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={handleClick}
-                  className="text-smallTextColor font-[600]"
-                  href="#services"
-                >
-                  Services
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={handleClick}
-                  className="text-smallTextColor font-[600]"
-                  href="#contact"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>)} */}
-
           {/* ============ Menu Right ============ */}
           <div className="flex items-center gap-4">
             {!token && (<Link to="/register">
@@ -172,50 +129,48 @@ const Navbar = ({setToken, setUser, user, token}) => {
                         <i class="ri-close-line"></i>
                     </div>
                     <Link to="/home">
-                      <button className="flex items-center mt-[50px] px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
-                      <i class="ri-home-2-line"></i>
-                      <h1 className="ml-[15px]">Home</h1>
+                      <button className="flex items-center mt-[50px] px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75"
+                      onClick={toggleSlideOver}>
+                        <i class="ri-home-2-line"></i>
+                        <h1 className="ml-[15px]">Home</h1>
                       </button>
                     </Link>
                     <Link to="/profile">
-                      <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
-                      <i class="ri-user-line"></i>
-                      <h1 className="ml-[15px]">Proile</h1>
+                      <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75"
+                      onClick={toggleSlideOver}>
+                        <i class="ri-user-line"></i>
+                        <h1 className="ml-[15px]">Proile</h1>
                       </button>
                     </Link>
                     <Link to="/contacts">
-                      <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
+                      <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75"
+                      onClick={toggleSlideOver}>
                         <i class="ri-contacts-line"></i>
                         <h1 className="ml-[15px]">Contacts</h1>
                       </button>
                     </Link>
-                    {/* <Link to="/history"> */}
-                      <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
+                    <Link to="/transactions">
+                      <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75"
+                      onClick={toggleSlideOver}>
                         <i class="ri-history-fill"></i>
                         <h1 className="ml-[15px]">Transaction History</h1>
                       </button>
-                    {/* </Link> */}
+                    </Link>
                     <Link to="/contact">
-                      <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
+                      <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75"
+                      onClick={toggleSlideOver}>
                         <i class="ri-question-line"></i>
                         <h1 className="ml-[15px]">Help</h1>
                       </button>
                     </Link>
                     <button
-                        onClick={() => {localStorage.removeItem('token'); navigate('/login')}} 
+                        onClick={() => {localStorage.removeItem('token'); setToken(false); setUser(false); navigate('/login'); window.location.reload()}} 
                         className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
                         <i class="ri-logout-box-r-line"></i>
                         <h1 className="ml-[15px]">Log Out</h1>
                     </button>
                 </div>
             </div>)}
-
-            {/* <span
-              onClick={toggleMenu}
-              className="text-2xl text-smallTextColor md:hidden cursor-pointer"
-            >
-              <i class="ri-menu-3-line"></i>
-            </span> */}
           </div>
         </div>
       </div>

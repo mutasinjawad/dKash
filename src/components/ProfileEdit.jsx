@@ -3,12 +3,24 @@ import defaultPic from '../assets/Profile.png';
 import { Link, useNavigate } from "react-router-dom";
 import host from "../api";
 
-const ProfileEdit = ({token, user, setUser}) => {
+const ProfileEdit = ({token, user}) => {
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email); 
     const navigate = useNavigate();
 
-    const [ProfilePicSrc, setProfileEditPicSrc] = useState(defaultPic);
+    const [ProfilePicSrc, setProfileEditPicSrc] = useState(user.picture);
+
+    useEffect(() => {
+        fetch(host + "/profile", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "token": token,
+            },
+          }).then((data) => data.json()).then((data) => {setUser(data);console.log(data)})
+            .catch((err) => console.log(err));
+    }
+    , [token]);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];

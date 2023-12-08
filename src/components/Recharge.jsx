@@ -6,10 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Recharge = ({token, user}) => {
 
-  const [rechargeAmount, setRechargeAmount] = useState(0);
+  const [rechargeAmount, setRechargeAmount] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const navigate = useNavigate();
-  const remainingBalance = user.balance - (5 + (parseFloat(rechargeAmount) + parseFloat(rechargeAmount) * 0.001));
+  const remainingBalance = user.balance - rechargeAmount;
   const isValidMobileNumber = () => {
     const validPrefixes = ['+88018', '+88017', '+88016', '+88019', '+88015', '+88014', '+88013'];
     if (isNaN(rechargeAmount) || rechargeAmount <= 0) {
@@ -48,7 +48,7 @@ const Recharge = ({token, user}) => {
     }
   };
     const handleRecharge = () => {
-          const form = { receiver : mobileNumber, amount : rechargeAmount};
+          const form = { mobileNumber, rechargeAmount};
           fetch(host + "/money/recharge", {
             method: "POST",
             headers: {
@@ -60,13 +60,13 @@ const Recharge = ({token, user}) => {
             .then((data) => data.text()).then(() => {navigate("/home")})
             .catch((err) => console.log(err));
       };
-  
       const handleChange = (e) => {
         e.preventDefault();
+        
         const { name, value } = e.target;
-        if (name === "reciver") {
+        if (name === "mobileNumber") {
           setMobileNumber(value);
-        } else if (name === "amount") {
+        } else if (name === "rechargeAmount") {
           setRechargeAmount(value);
         }
       };
@@ -79,7 +79,7 @@ const Recharge = ({token, user}) => {
         <p data-aos="fade-right" data-aos-duration="1500" className='mb-[70px] font-[800] text-smallTextColor text-[100px]'>Recharge Money</p>
         <h1 className='font-[600] text-[20px] p-2'>BALANCE</h1>
         <p data-aos="fade-up" data-aos-duration="1500" className='font-[700] text-[80px]'>&#2547; {user.balance} BDT</p>
-        <p className='font-[400] text-[20px] text-gray-400'>Total Cost: 5 + {rechargeAmount && (parseFloat(rechargeAmount) + parseFloat(rechargeAmount) * 0.001)}</p>
+        <p className='font-[400] text-[20px] text-gray-400'>Total Cost: {rechargeAmount}</p>
           {rechargeAmount && (
             <p className={`font-[400] text-[18px] mt-5 ${remainingBalance < 0 ? 'text-red-400' : 'text-green-400'}`}>
                 Remaining Balance: {remainingBalance}
@@ -95,10 +95,9 @@ const Recharge = ({token, user}) => {
               <i className="ri-phone-line"></i>
               <input
                 className='h-[50px] w-[400px] text-[19px] bg-transparent focus:outline-none pl-[20px]'
-                type='text'
+                type='tel'
                 placeholder='Mobile Number'
-                name='reciver'
-                value={mobileNumber}
+                name='mobileNumber'
                 onChange={handleChange}
               />
             </div>
@@ -111,8 +110,7 @@ const Recharge = ({token, user}) => {
                 className='h-[50px] w-[400px] text-[19px] bg-transparent focus:outline-none pl-[20px]'
                 type='number'
                 placeholder='Amount'
-                name='amount'
-                value={rechargeAmount}
+                name='rechargeAmount'
                 onChange={handleChange}
               />
             </div>

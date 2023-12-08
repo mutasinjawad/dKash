@@ -5,7 +5,7 @@ import RecentTrax from './RecentTrax'
 const TransView = ({ token }) => {
   return (
     <div className="flex flex-col mx-4">
-        <DashChart />
+        <DashChart token={token}/>
         <RecentTrax token={token}/>
     </div>
   )

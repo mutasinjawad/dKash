@@ -13,6 +13,7 @@ import Home from "./components/Home";
 import Contact from "./components/Contact";
 import Profile from "./components/Profile";
 import UserHome from "./components/UserHome";
+import UserTrax from "./components/UserTrax";
 import AddMoney from "./components/AddMoney";
 import Cashout from "./components/Cashout";
 import SendMoney from "./components/SendMoney";
@@ -20,7 +21,6 @@ import Payment from "./components/Payment";
 import ProfileEdit from "./components/ProfileEdit";
 import QRGenerator from "./components/QRGenerator";
 import QRScanner from "./components/QRScanner";
-import TanStackTable from "./components/TanStackTable";
 import Chatroom from "./components/Admin/Chatroom";
 import UserChatBox from "./components/UserChatBox";
 import Aos from "aos";
@@ -91,6 +91,11 @@ function App() {
                   <SendMoney token={token} user={user} setUser={setUser} />
                 }
               />
+              <Route 
+                path="transactions" 
+                element={<UserTrax token={token} user={user} setUser={setUser}/>
+                } 
+              /> 
               <Route
                 path="qr"
                 element={<QRGenerator token={token} user={user} setUser={setUser} />}
@@ -120,10 +125,6 @@ function App() {
                 element={
                   <ProfileEdit token={token} user={user} setUser={setUser} />
                 }
-              />
-              <Route 
-                path="/table" 
-                element={<TanStackTable token={token} user={user} setUser={setUser}/>} 
               />
               </>
               )}

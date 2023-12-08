@@ -23,7 +23,7 @@ const UserView = ({ token }) => {
         setUsers(data);
         console.log(data)
     })
-    .catch((err) => {console.log(err); console.log(token)});
+    .catch((err) => {console.log(err)});
   }, [token]);
 
   return (
@@ -34,7 +34,7 @@ const UserView = ({ token }) => {
             {users.map((user) => (
                 <div className='flex hover:no-underline w-full justify-between border-b pb-3'>
                   <div className='w-16 h-16 min-w-10 mr-7 bg-gray-200 rounded-full overflow-hidden'>
-                      <img className='w-full h-full' src={user.picture ? user.picture : defaultPic} />
+                      <img className='w-full h-full' src={defaultPic} />
                   </div>
                   <div className='ml-4 flex justify-between w-full'>
                     <div className='flex flex-col items-start justify-center'>
@@ -50,7 +50,7 @@ const UserView = ({ token }) => {
         </div>
       </div>
       <div className="flex flex-col items-end">
-        <DashUserProfileChart />
+        <DashUserProfileChart token={token}/>
         <NewUser token={token}/>
       </div>
     </div>

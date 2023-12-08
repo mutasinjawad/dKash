@@ -123,37 +123,63 @@ const UserHome = ({ token, user, setUser }) => {
           </div>
         
       </div>
-      <div className="flex flex-col items-center px-[230px] h-[524px] w-full bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-400">
-        <h1 className="font-[600] text-[40px] text-white pt-10">RECENT</h1>
-        <div className="mt-[60px]">
-          <table className="text-white bg-transparent">
-            <thead className="bg-smallTextColor">
-              <tr>
-                <th className="py-2 px-4 border-b">Sender ID</th>
-                <th className="py-2 px-4 border-b">Receiver ID</th>
-                <th className="py-2 px-4 border-b">Transaction Type</th>
-                <th className="py-2 px-4 border-b">Amount</th>
-                <th className="py-2 px-4 border-b">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.map((transaction) => (
-                <tr key={transaction.date}>
-                  <td className="py-2 px-4 border-b font-[500] text-[20px]">{transaction.sender}</td>
-                  <td className="py-2 px-4 border-b font-[500] text-[20px]">{transaction.receiver}</td>
-                  <td className="py-2 px-4 border-b font-[500] text-[20px]">{transaction.type}</td>
-                  <td className="py-2 px-4 border-b font-[500] text-[20px]">{transaction.amount}</td>
-                  <td className="py-2 px-4 border-b font-[500] text-[20px]">{transaction.date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className='fixed flex bottom-32 right-36'>
-          <UserMsgBtn token={token} user={user} setUser={setUser} />
-        </div>
-      </div>
 
+      {/* Transaction */}
+        <div className="flex flex-col px-[230px] h-[524px] w-full bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-400">
+          <div className='bg-white p-4 m-4 mb-2 rounded-md border border-gray-200'>
+            <div className="flex justify-between">
+                <strong className='flex text-primaryColor justify-center text-[24px] font-[800]'>Recent Transactions</strong>
+                <Link to ="/transactions">
+                  <div className="flex justify-center items-center bg-[#e8deff] w-[65px] h-[40px] rounded-xl shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
+                    <h3 className="text-primaryColor font-[500] text-[12px] group-hover:text-white">
+                      View All
+                    </h3>
+                  </div>
+                </Link>
+            </div>
+            <div className='mt-3'>
+              <table className='w-full text-gray-700'>
+                <thead>
+                  <tr className=' bg-gray-100 text-[20px] font-[700]'>
+                    <td className='p-2'>Sender Name</td>
+                    <td>Reciver Name</td>
+                    <td>Type</td>
+                    <td>Amount</td>
+                    <td>Time</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {transactions.slice(0, 9).map((order) => (
+                    <tr className="text-[15px] font-[500]">
+                      <td className='p-2'>{order.sender}</td>
+                      <td>{order.receiver}</td>
+                      <td className={`text-${
+                        order.type === 'send_money' ? 'red' :
+                        order.type === 'add_money' ? 'green' :
+                        order.type === 'loan' ? 'yellow' :
+                        order.type === 'loan_repay' ? 'blue' :
+                        order.type === 'cashout' ? 'green' :
+                        order.type === 'recharge' ? 'purple' :
+                        order.type === 'payment' ? 'orange' :
+                        'black'
+                      }`}
+                      >{order.type}</td>
+                      <td>{order.amount}</td>
+                      <td>{new Date(order.date).toLocaleDateString()}</td>
+                      {/* <td>{order.shipment_address}</td>
+                      <td>{getOrderStatus(order.current_order_status)}</td> */}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+              
+          </div>
+          {/* <Transactions token={token} user={user} setUser={setUser} /> */}
+          <div className='fixed flex bottom-32 right-36'>
+            <UserMsgBtn token={token} user={user} setUser={setUser} />
+          </div>
+        </div>
     </div>
   );
 };

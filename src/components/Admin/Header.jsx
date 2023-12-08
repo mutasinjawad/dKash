@@ -19,34 +19,6 @@ const Header = ({token, user, setUser}) => {
 					<i class="ri-chat-1-line"></i>
 				</div>
 			</Link>
-			<Popover className="relative">
-					{({ open }) => (
-						<>
-							<Popover.Button
-								className={`${open ? 'text-primaryColor bg-gray-100' : 'text-black'}
-                                group inline-flex items-center rounded-sm p-1.5 text-gray-700 text-[18px] hover:text-primaryColor focus:outline-none active:bg-gray-100`
-                            }
-							>
-								<i class="ri-notification-line" ></i>
-							</Popover.Button>
-							<Transition
-								enter="transition ease-out duration-200"
-								enterFrom="opacity-0 translate-y-1"
-								enterTo="opacity-100 translate-y-0"
-								leave="transition ease-in duration-150"
-								leaveFrom="opacity-100 translate-y-0"
-								leaveTo="opacity-0 translate-y-1"
-							>
-								<Popover.Panel className="absolute right-0 z-10 mt-2.5 transform w-80">
-									<div className="bg-white rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
-										<strong className="text-gray-700 font-medium">Notifications</strong>
-										<div className="mt-2 py-1 text-sm">This is notification panel.</div>
-									</div>
-								</Popover.Panel>
-							</Transition>
-						</>
-					)}
-			</Popover>
 
             <Menu as="div" className="relative inline-block text-left">
                 <div>
@@ -88,7 +60,7 @@ const Header = ({token, user, setUser}) => {
 							{({ active }) => (
 								<div className={`${active ? 'bg-gray-100' : ''}
                                 text-gray-700 focus:bg-gray-200 cursor-pointer rounded-sm px-4 py-2`}
-									onClick={() => {localStorage.removeItem('token'); navigate('/login')}}>
+									onClick={() => {localStorage.removeItem('token'); setUser(false); navigate('/login'); window.location.reload()}}>
 									Logout
 								</div>
 							)}
