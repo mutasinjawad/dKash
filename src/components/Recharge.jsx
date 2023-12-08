@@ -1,11 +1,8 @@
-
-
 import React, { useState } from 'react';
 import host from "../api";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 const Recharge = ({token, user}) => {
 
@@ -84,8 +81,6 @@ const Recharge = ({token, user}) => {
      
       <p data-aos="fade-right" data-aos-duration="1500" className='mb-[50px] font-[800] text-smallTextColor text-[100px]'>Recharge Money</p>
       <p data-aos="fade-up" data-aos-duration="1500" className='font-[600] text-[60px]'>&#2547; Account Balance: {user.balance} BDT</p>
-      
-
       <div className="flex gap-4">
         <div className='flex flex-col pr-[80px]'>
           <div className='flex flex-col my-[20px]'>
@@ -101,8 +96,6 @@ const Recharge = ({token, user}) => {
               />
             </div>
           </div>
-
-
           <div className='flex flex-col my-[20px]'>
             <h1 className='font-[700] px-[30px]'>Recharge Amount:</h1>
             <div className='flex items-center mt-[10px] w-[400px] h-[80px] border-[1px] border-black rounded-[30px] p-7 hover:bg-gray-100 ease-in duration-150'>

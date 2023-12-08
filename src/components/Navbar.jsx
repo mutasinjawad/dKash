@@ -182,12 +182,12 @@ const Navbar = ({setToken, setUser, user, token}) => {
                       <h1 className="ml-[15px]">Proile</h1>
                       </button>
                     </Link>
-                    {/* <Link to="/contacts"> */}
+                    <Link to="/contacts">
                       <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
                         <i class="ri-contacts-line"></i>
                         <h1 className="ml-[15px]">Contacts</h1>
                       </button>
-                    {/* </Link> */}
+                    </Link>
                     {/* <Link to="/history"> */}
                       <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
                         <i class="ri-history-fill"></i>

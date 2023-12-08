@@ -62,6 +62,7 @@ const Cashout = ({token, user, setUser}) => {
                     </div>
                     <button className='flex justify-center items-center mt-[30px] w-[220px] h-[59px] bg-[#e8deff] text-primaryColor font-[700] cursor-pointer rounded-full hover:bg-primaryColor hover:text-white ease-in duration-150'
                     onClick={handleSubmit}>Cashout</button>
+                    
                 </div>
             </div>
             {/* <div className='flex justify-between px-[230px] bg-smallTextColor h-[518px] w-full'>

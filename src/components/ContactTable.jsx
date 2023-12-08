@@ -254,9 +254,6 @@ const ContactTable = ({ token }) => {
     }
 
   };
-
-
-
   const handleSendMoney = (phone) => {
     navigate("/send", { state: { phone: phone } });
   };

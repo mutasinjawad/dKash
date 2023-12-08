@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import host from "../api";
 import { useNavigate } from "react-router-dom";
@@ -27,10 +26,7 @@ const TakeLoan = ({token, user}) => {
         })
         .catch((err) => console.log(err));
     }, [token]);
-
     
-
-
   const navigate = useNavigate();
 
   const handleSubmit = () => {
