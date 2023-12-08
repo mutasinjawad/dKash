@@ -1,8 +1,12 @@
 import React from 'react'
 import { ResponsiveContainer, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts'
+import host from '../../api'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
-const DashChart = () => {
-
+const DashChart = ({ token }) => {
+    
+    const [transactions, setTransactions] = useState([])
     const data = [
         {
             name: 'Jan',
@@ -66,6 +70,22 @@ const DashChart = () => {
         }
     ]
 
+    useEffect(() => {
+        fetch (host + "/admin/transactions", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+        })
+        .then((data) => data.json())
+        .then((data) => {
+            setTransactions(data);
+            console.log(data)
+        })
+        .catch((err) => {console.log(err); console.log(token)});
+      }, [token]);
+      
   return (
     <div className='h-[24rem] bg-white p-4 mt-4 rounded-sm border border-gray-200 flex flex-col flex-1'>
         <strong className='text-primaryColor text-[18px] font-[800]'>Transactions</strong>

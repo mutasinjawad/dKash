@@ -6,8 +6,7 @@ const UserSendMessage = ({token, user, setUser, selectedChat}) => {
 
   const [value, setValue] = useState('')
   
-  const handelSubmit = (e) => {
-    e.preventDefault()
+  const handelSubmit = () => {
     fetch(host + "/chat/message", {
       method: "POST",
             headers: {

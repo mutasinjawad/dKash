@@ -1,8 +1,12 @@
 import React from 'react'
 import {getOrderStatus} from './GetStatus'
+import host from '../../api'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
-const RecentTrax = () => {
+const RecentTrax = ({ token }) => {
 
+  const [transactions, setTransactions] = useState([])
   const recentOrderData = [
     {
       id: '1',
@@ -66,6 +70,22 @@ const RecentTrax = () => {
     }
   ]
 
+  useEffect(() => {
+    fetch (host + "/admin/transactions", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            token: token,
+        },
+    })
+    .then((data) => data.json())
+    .then((data) => {
+        setTransactions(data);
+        console.log(data)
+    })
+    .catch((err) => {console.log(err); console.log(token)});
+  }, [token]);
+
   return (
     <div className='bg-white p-4 mt-4 rounded-md border border-gray-200 flex-1'>
         <strong className='text-primaryColor text-[18px] font-[800]'>Recent Transactions</strong>
@@ -73,27 +93,23 @@ const RecentTrax = () => {
           <table className='w-full text-gray-700 text-[15px] m-1'>
             <thead>
               <tr className='bg-gray-100'>
-                <td className='p-2'>ID</td>
-                <td>Product ID</td>
-                <td>Customer ID</td>
-                <td>Customer Name</td>
-                <td>Order Date</td>
-                <td>Order Total</td>
-                <td>Shipment Address</td>
-                <td>Order Status</td>
+                <td className='p-2'>Sender Name</td>
+                <td>Reciver Name</td>
+                <td>Type</td>
+                <td>Amount</td>
+                <td>Time</td>
               </tr>
             </thead>
             <tbody>
-              {recentOrderData.map((order) => (
-                <tr key={order.id}>
-                  <td className='p-2'>#{order.id}</td>
-                  <td>{order.product_id}</td>
-                  <td>{order.customer_id}</td>
-                  <td>{order.customer_name}</td>
-                  <td>{new Date(order.order_date).toLocaleDateString()}</td>
-                  <td>{order.order_total}</td>
-                  <td>{order.shipment_address}</td>
-                  <td>{getOrderStatus(order.current_order_status)}</td>
+              {transactions.map((order) => (
+                <tr>
+                  <td className='p-2'>{order.sender}</td>
+                  <td>{order.receiver}</td>
+                  <td>{order.type}</td>
+                  <td>{order.amount}</td>
+                  <td>{new Date(order.date).toLocaleDateString()}</td>
+                  {/* <td>{order.shipment_address}</td>
+                  <td>{getOrderStatus(order.current_order_status)}</td> */}
                 </tr>
               ))}
             </tbody>

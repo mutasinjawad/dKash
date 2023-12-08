@@ -24,27 +24,35 @@ const Register = ({token, setToken, setUser}) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (pin == cPin) {
-      const form = { phone, pin };
-      console.log(JSON.stringify(form));
-      fetch(host + "/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      })
-      .then((data) => data.text())
-      .then((t) => {
-        localStorage.setItem("token", t);
-        setToken(t);
-        const user = jwtDecode(t);
-        setUser(user);
-      })
-      .then(() => {
-        navigate("/home");
-      })
-      .catch((err) => console.log(err));
+    if (phone.length == 14){
+      if (pin == cPin && pin.length == 6) {
+        const form = { phone, pin };
+        console.log(JSON.stringify(form));
+        fetch(host + "/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        })
+        .then((data) => data.text())
+        .then((t) => {
+          localStorage.setItem("token", t);
+          setToken(t);
+          const user = jwtDecode(t);
+          setUser(user);
+        })
+        .then(() => {
+          navigate("/home");
+        })
+        .catch((err) => console.log(err));
+      }
+      else {
+        alert("Pin Length should be 6 and should match");
+      }
+    }
+    else {
+      alert("Invalid Phone Number");
     }
   };
   return (
@@ -100,18 +108,16 @@ const Register = ({token, setToken, setUser}) => {
         </div>
       </div>
       <div className="flex gap-[30px] my-[50px] mx-auto">
+        <div>
+            <h1 className="text-[13px] text-gray-600">Already have an account?</h1>
+            <Link to={"/login"} className="text-gray-700 cursor-pointer hover:text-white hover:underline ease-in duration-100">Click Here!</Link>
+        </div>
         <div
           onClick={handleSubmit}
           className={`flex justify-center items-center w-[220px] h-[59px] text-[19px] font-[700] cursor-pointer rounded-full bg-[#e8deff] text-[#3c009d] hover:bg-[#3c009d] hover:text-white ease-in-out duration-300`}
         >
           Sign Up
         </div>
-        <Link
-          to={"/login"}
-          className={`flex justify-center items-center w-[220px] h-[59px] text-[19px] font-[700] cursor-pointer rounded-full bg-white text-[#3c009d] hover:bg-[#eaeaea] hover:text-[#3c009d] ease-in-out duration-300`}
-        >
-          Login
-        </Link>
       </div>
     </div>
   );

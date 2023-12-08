@@ -1,6 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import host from '../../api';
 
-const DashStatsGrid = () => {
+const DashStatsGrid = ({ token, user, setUser }) => {
+
+    const [users, setUsers] = useState([])
+    const [transactions, setTransactions] = useState([])
+
+    useEffect(() => {
+        fetch (host + "/admin/users", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+        })
+        .then((data) => data.json())
+        .then((data) => {
+            setUsers(data);
+            console.log(data)
+        })
+        .catch((err) => {console.log(err); console.log(token)});
+
+        fetch (host + "/admin/transactions", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+        })
+        .then((data) => data.json())
+        .then((data) => {
+            setTransactions(data);
+            console.log(data)
+        })
+        .catch((err) => {console.log(err); console.log(token)});
+    }, [token]);
 
     const boxWrapper = 'bg-white rounded-md px-4 py-2 mr-4 flex-1 border border-gray-200 flex items-center'
 
@@ -11,7 +45,7 @@ const DashStatsGrid = () => {
                 <i class="ri-user-6-fill"></i>
             </div>
             <div className='pl-4'>
-                <div className='text-[30px] font-[700]'>0</div>
+                <div className='text-[30px] font-[700]'>{users.length}</div>
                 <div className='font-[500] text-[15px] text-gray-500'>Total Users</div>
             </div>
         </div>
@@ -20,7 +54,7 @@ const DashStatsGrid = () => {
                 <i class="ri-bank-fill"></i>
             </div>
             <div className='pl-4'>
-                <div className='text-[30px] font-[700]'>0</div>
+                <div className='text-[30px] font-[700]'>{transactions.length}</div>
                 <div className='font-[500] text-[15px] text-gray-500'>Total Transactions</div>
             </div>
         </div>
@@ -39,7 +73,7 @@ const DashStatsGrid = () => {
             </div>
             <div className='pl-4'>
                 <div className='text-[30px] font-[700]'>0</div>
-                <div className='font-[500] text-[15px] text-gray-500'>Total Add Amount</div>
+                <div className='font-[500] text-[15px] text-gray-500'>Total Cashout Amount</div>
             </div>
         </div>
     </div>

@@ -23,7 +23,63 @@ const Login = ({ setToken, token, setUser }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (phone.length !== 14) {
+      toast.warn('Invalid Phone Number!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
+      return;
+    }
+    if (pin.length !== 6) {
+      toast.warn('Invalid Pin!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
+      return;
+    }
+    
     const form = { phone, pin };
+    // fetch(host + "/auth/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(form),
+    // })
+    // .then((data) => data.text())
+    // .catch((err) => console.log(err),
+    // toast.warn('Log in Failed!', {
+    // position: "top-center",
+    // autoClose: 2000,
+    // hideProgressBar: false,
+    // closeOnClick: true,
+    // pauseOnHover: true,
+    // draggable: true,
+    // progress: undefined,
+    // theme: "dark",
+    // }))
+    //   .then((t) => {
+    //     localStorage.setItem("token", t);
+    //     setToken(t);
+    //     const user = jwtDecode(t);
+    //     setUser(user);
+    //     if (user.type === 'admin') {
+    //       navigate('/admin');
+    //     } else {
+    //       navigate('/home');
+    //     }
+    //   })
+
     fetch(host + "/auth/login", {
       method: "POST",
       headers: {
@@ -31,30 +87,24 @@ const Login = ({ setToken, token, setUser }) => {
       },
       body: JSON.stringify(form),
     })
-      .then((data) => data.text())
-      .then((t) => {
-        localStorage.setItem("token", t);
-        setToken(t);
-        const user = jwtDecode(t);
-        setUser(user);
-      })
-      .then(() => {
-        navigate("/home");
-        
-
-      })
-      .catch((err) => console.log(err));
-      toast.warn('Log in Failed!', {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      });
-
+    .then((data) => {
+      if (data.status !== 200){
+        throw new Error('Log in Failed!');
+      }
+      return data.text()})
+    .then((t) => {
+      localStorage.setItem("token", t);
+      setToken(t);
+      const user = jwtDecode(t);
+      setUser(user);
+      if (user.type === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/home');
+      }
+    })
+    .catch((err) => console.log(err),
+    )
   };
 
   return (
@@ -89,15 +139,13 @@ const Login = ({ setToken, token, setUser }) => {
       </div>
 
       <div className="flex gap-[30px] my-[50px] mx-auto">
-        <Link
-          to={"/register"}
-          className={`flex justify-center items-center w-[220px] h-[59px] text-[19px] font-[700] cursor-pointer rounded-full bg-[#e8deff] text-[#3c009d] hover:bg-[#3c009d] hover:text-white ease-in-out duration-300`}
-        >
-          Sign Up
-        </Link>
+      <div>
+            <h1 className="text-[13px] text-gray-600">Don't have an account?</h1>
+            <Link to={"/register"} className="text-gray-700 cursor-pointer hover:text-white hover:underline ease-in duration-100">Sign Up Here!</Link>
+      </div>
         <div
           onClick={handleSubmit}
-          className={`flex justify-center items-center w-[220px] h-[59px] text-[19px] font-[700] cursor-pointer rounded-full bg-white text-[#4c00b4] hover:bg-[#eaeaea] hover:text-[#3c009d] ease-in-out duration-300`}
+          className={`flex justify-center items-center w-[220px] h-[59px] text-[19px] font-[700] cursor-pointer rounded-full bg-[#e8deff] text-[#3c009d] hover:bg-[#3c009d] hover:text-white ease-in-out duration-300`}
         >
           Login
         </div>

@@ -40,11 +40,12 @@ const ChatBox = ({token, user, setUser}) => {
       <div className='w-[38rem] bg-white p-4 mt-4 rounded-sm border border-gray-200 flex flex-col'>
         <MsgSubject token={token} user={user} setUser={setUser} setSelectedChat={setSelectedChat}/>
       </div>
-      <div className='bg-white p-4 mt-4 rounded-sm border border-gray-200 flex flex-col flex-1'>
-        <div className='pb-44 pt-20'>
-          {selectedChat === -1 ? <div className='text-[15px] font-[400]'>Select a subject to start a conversation</div> : <Messages chat={selectedChat}/>}
+      <div className='bg-white p-4 mt-4 rounded-2xl border border-gray-200 flex flex-col flex-1'>
+          <div className='text-[30px] font-[700] w-full border-b pb-2'>Messages</div>
+            <div className='pb-44 pt-5'>
+              {selectedChat === -1 ? <div className='text-[15px] font-[400]'>Select a subject to start a conversation</div> : <Messages chat={selectedChat}/>}
+            </div>
         </div>
-      </div>
     </div>
         <SendMessage token={token} user={user} setUser={setUser} selectedChat={selectedChat}/>
         </>

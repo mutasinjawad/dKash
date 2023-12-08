@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import Layout from "./components/Admin/Layout";
 import Dashboard from "./components/Admin/Dashboard";
 import UserView from "./components/Admin/UserView";
+import TransView from "./components/Admin/TransView";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
 import Profile from "./components/Profile";
@@ -59,63 +60,63 @@ function App() {
     <>
       <div>
         <BrowserRouter>
-          {/* {user.type !== 'admin' ? <Navbar token={token} setToken={setToken} setUser={setUser} user={user}/> : null} */}
+          {user.type !== 'admin' ? <Navbar token={token} setToken={setToken} setUser={setUser} user={user}/> : null}
           <Routes>
               <Route index element={<Home />} />
               <Route
-                path="/login"
+                path="login"
                 element={
                   <Login setToken={setToken} token={token} setUser={setUser} />
                 }
               />
               <Route 
-                path="/contact" 
+                path="contact" 
                 element={<Contact token={token} user={user} setUser={setUser}/>} 
                 />
               {token &&(<><Route
-                path="/profile"
+                path="profile"
                 element={<Profile token={token} user={user} setUser={setUser} />}
               />
               <Route
-                path="/home"
+                path="home"
                 element={<UserHome token={token} user={user} setUser={setUser} />}
               />
               <Route
-                path="/add"
+                path="add"
                 element={<AddMoney token={token} user={user} setUser={setUser} />}
               />
               <Route
-                path="/send"
+                path="send"
                 element={
                   <SendMoney token={token} user={user} setUser={setUser} />
                 }
               />
               <Route
-                path="/qr"
+                path="qr"
                 element={<QRGenerator token={token} user={user} setUser={setUser} />}
               />
               <Route
-                path="/scan"
+                path="scan"
                 element={<QRScanner />} 
               />
               <Route  
-                path="/chat" 
+                path="chat" 
                 element={<UserChatBox token={token} user={user} setUser={setUser}/>}
               />
               <Route
-                path="/cashout"
+                path="cashout"
                 element={
                   <Cashout token={token} user={user} setUser={setUser} />
                 }
               />
               <Route
-                path="/payment"
+                path="payment"
                 element={
                   <Payment token={token} user={user} setUser={setUser} />
                 }
               />
               <Route
-                path="/edit"
+                path="edit"
                 element={
                   <ProfileEdit token={token} user={user} setUser={setUser} />
                 }
@@ -126,17 +127,20 @@ function App() {
               />
               </>
               )}
-            <Route path="/register" element={<Register token={token} setToken={setToken} setUser={setUser}/>} />
-            <Route path="/contacts" element={<ContactTable token={token} setToken={setToken} user={user}/>} />
-            <Route path="/loan" element={<TakeLoan token={token} user={user} setUser={setUser}/>} />
-            <Route path="/recharge" element={<Recharge token={token} user={user} setUser={setUser}/>} />
+            <Route path="register" element={<Register token={token} setToken={setToken} setUser={setUser}/>} />
+            <Route path="contacts" element={<ContactTable token={token} setToken={setToken} user={user}/>} />
+            <Route path="loan" element={<TakeLoan token={token} user={user} setUser={setUser}/>} />
+            <Route path="recharge" element={<Recharge token={token} user={user} setUser={setUser}/>} />
           </Routes>
           <Routes>
-            <Route path="/admin" element={<Layout token={token} user={user} setUser={setUser}/>}>
-              <Route index element={<Dashboard />} />
+          {token && user.type === 'admin' && (<><Route path="/admin" element={<Layout token={token} user={user} setUser={setUser}/>}>
+              <Route index element={<Dashboard token={token} user={user} setUser={setUser}/>} />
               <Route path="users" element={<UserView token={token} user={user} setUser={setUser}/>} />
+              <Route path="transactions" element={<TransView token={token} user={user} setUser={setUser}/>} />
               <Route path="chat" element={<Chatroom token={token} user={user} setUser={setUser}/>} />
             </Route>
+            </>
+              )}
           </Routes>
         </BrowserRouter>
       </div>

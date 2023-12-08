@@ -1,8 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import host from '../../api';
+import defaultPic from '../../assets/profile.png';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-const NewUser = () => {
-
+const NewUser = ({ token, user, setUser }) => {
+    
+    const [users, setUsers] = useState([])
     const popularProducts = [
         {
             id: '3432',
@@ -48,20 +53,36 @@ const NewUser = () => {
         }
     ]
 
+    useEffect(() => {
+        fetch (host + "/admin/users", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+        })
+        .then((data) => data.json())
+        .then((data) => {
+            setUsers(data);
+            console.log(data)
+        })
+        .catch((err) => {console.log(err); console.log(token)});
+      }, [token]);console.log(users)
+
   return (
     <div className='bg-white p-4 mt-4 rounded-sm border border-gray-200 w-[20rem]'>
         <strong className='text-primaryColor text-[18px] font-[800]'>New Users</strong>
         <div className='mt-4 flex flex-col gap-3'>
-            {popularProducts.map((product) => (
-                <Link key={product.id} to={`/admin/products/${product.id}`} className='flex hover:no-underline'>
-                    <div className='w-8 h-8 min-w-10 bg-gray-200 rounded-md overflow-hidden'>
-                        <img className='w-full h-full object-cover' src={product.product_thumbnail} alt={product.product_name} />
+            {users.map((user) => (
+                <div className='flex hover:no-underline'>
+                    <div className='w-8 h-8 bg-gray-200 rounded-full overflow-hidden'>
+                        <img className='w-full h-full object-cover' src={user.picture ? user.picture : defaultPic}/>
                     </div>
                     <div className='ml-4 flex-1'>
-                        <p className='text-[12px] text-gray-700'>{product.product_name}</p>
-                        <p className='text-[12px] text-gray-700'>{product.product_price}</p>
+                        <p className='text-[15px] font-[700] text-gray-700'>{user.phone}</p>
+                        <p className='text-[13px] font-[500] text-gray-700'>{user.name}</p>
                     </div>
-                </Link>
+                </div>
             ))}
         </div>
     </div>

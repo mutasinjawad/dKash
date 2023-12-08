@@ -12,33 +12,10 @@ const Recharge = ({token, user}) => {
   const [rechargeAmount, setRechargeAmount] = useState(0);
   const [mobileNumber, setMobileNumber] = useState('');
   const navigate = useNavigate();
+  const remainingBalance = user.balance - (5 + (parseFloat(rechargeAmount) + parseFloat(rechargeAmount) * 0.001));
   const isValidMobileNumber = () => {
     const validPrefixes = ['+88018', '+88017', '+88016', '+88019', '+88015', '+88014', '+88013'];
-    return (
-      mobileNumber.length === 14 &&
-      validPrefixes.some(prefix => mobileNumber.startsWith(prefix))
-    );
-  };
-
-  const handleSubmit = () => {
-        
-          const form = { receiver : mobileNumber, amount : rechargeAmount};
-          fetch(host + "/money/recharge", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-                "token": token,
-            },
-            body: JSON.stringify(form),
-          })
-            .then((data) => data.text()).then(() => {navigate("/home")})
-            .catch((err) => console.log(err));
-      };
-
-  const handleRecharge = () => {
-    const amount = parseFloat(rechargeAmount);
-
-    if (isNaN(amount) || amount <= 0) {
+    if (isNaN(rechargeAmount) || rechargeAmount <= 0) {
       toast.warn('Please enter a valid positive number for recharge.', {
         position: "top-center",
         autoClose: 2000,
@@ -49,7 +26,7 @@ const Recharge = ({token, user}) => {
         progress: undefined,
         theme: "dark",
       });
-    } else if (amount > user.balance) {
+    } else if (rechargeAmount > user.balance) {
       toast.warn('Insufficient funds! You cannot recharge more than your account balance.', {
         position: "top-center",
         autoClose: 2000,
@@ -71,23 +48,47 @@ const Recharge = ({token, user}) => {
         progress: undefined,
         theme: "dark",
       });
-    } else {
-      // Perform recharge logic here
-    //   setuser.balance(user.balance - amount);
-      setRechargeAmount('');
-      setMobileNumber('');
-      // Additional logic for making an API call or updating state as needed
-      // For example: host.post('/recharge', { mobileNumber, amount });
-      handleSubmit();
     }
   };
+    const handleRecharge = () => {
+          const form = { receiver : mobileNumber, amount : rechargeAmount};
+          fetch(host + "/money/recharge", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+                "token": token,
+            },
+            body: JSON.stringify(form),
+          })
+            .then((data) => data.text()).then(() => {navigate("/home")})
+            .catch((err) => console.log(err));
+      };
+  
+      const handleChange = (e) => {
+        e.preventDefault();
+        const { name, value } = e.target;
+        if (name === "reciver") {
+          setMobileNumber(value);
+        } else if (name === "amount") {
+          setRechargeAmount(value);
+        }
+      };
+
+    
 
   return (
-    <div>
-     
-      <p data-aos="fade-right" data-aos-duration="1500" className='mb-[50px] font-[800] text-smallTextColor text-[100px]'>Recharge Money</p>
-      <p data-aos="fade-up" data-aos-duration="1500" className='font-[600] text-[60px]'>&#2547; Account Balance: {user.balance} BDT</p>
-      
+    <div className='flex justify-between px-[300px] my-[80px] w-[full]'>
+      <div>
+        <p data-aos="fade-right" data-aos-duration="1500" className='mb-[70px] font-[800] text-smallTextColor text-[100px]'>Recharge Money</p>
+        <h1 className='font-[600] text-[20px] p-2'>BALANCE</h1>
+        <p data-aos="fade-up" data-aos-duration="1500" className='font-[700] text-[80px]'>&#2547; {user.balance} BDT</p>
+        <p className='font-[400] text-[20px] text-gray-400'>Total Cost: 5 + {rechargeAmount && (parseFloat(rechargeAmount) + parseFloat(rechargeAmount) * 0.001)}</p>
+          {rechargeAmount && (
+            <p className={`font-[400] text-[18px] mt-5 ${remainingBalance < 0 ? 'text-red-400' : 'text-green-400'}`}>
+                Remaining Balance: {remainingBalance}
+            </p>
+          )}
+      </div>
 
       <div className="flex gap-4">
         <div className='flex flex-col pr-[80px]'>
@@ -99,8 +100,9 @@ const Recharge = ({token, user}) => {
                 className='h-[50px] w-[400px] text-[19px] bg-transparent focus:outline-none pl-[20px]'
                 type='text'
                 placeholder='Mobile Number'
+                name='reciver'
                 value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -113,10 +115,10 @@ const Recharge = ({token, user}) => {
               <input
                 className='h-[50px] w-[400px] text-[19px] bg-transparent focus:outline-none pl-[20px]'
                 type='number'
-                min="0"
                 placeholder='Amount'
+                name='amount'
                 value={rechargeAmount}
-                onChange={(e) => setRechargeAmount(e.target.value)}
+                onChange={handleChange}
               />
             </div>
           </div>

@@ -1,12 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = ({token, user, setUser}) => {
-    const userName = user?.name || '';
-    const userEmail = user?.email || ''; 
+    const [userName, setUserName] = useState(user?.name || '');
+    const [userEmail, setUserEmail] = useState(user?.email || ''); 
     const form = useRef();
 
     const sendEmail = (e) => {
@@ -44,6 +43,7 @@ const Contact = ({token, user, setUser}) => {
                                     type="text"
                                     placeholder='Enter your Name'
                                     value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
                                     name='userName'
                                     className='w-full p-3 focus:outline-none rounded-[15px]' 
                                 />
@@ -53,6 +53,7 @@ const Contact = ({token, user, setUser}) => {
                                     type="email"
                                     placeholder='Enter your Email'
                                     value={userEmail}
+                                    onChange={(e) => setUserEmail(e.target.value)}
                                     name='userEmail'
                                     className='w-full p-3 focus:outline-none rounded-[15px]' 
                                 />

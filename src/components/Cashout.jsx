@@ -6,6 +6,7 @@ const Cashout = ({token, user, setUser}) => {
     const [receiver, setReceiver] = useState('');
     const [amount, setAmount] = useState('');
     const navigate = useNavigate();
+    const remainingBalance = user.balance - (5 + (parseFloat(amount) + parseFloat(amount) * 0.001));
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -32,13 +33,20 @@ const Cashout = ({token, user, setUser}) => {
             .catch((err) => console.log(err));
       };
 
-    return(
+    
+      return(
         <div>
             <div className='flex justify-between px-[300px] my-[80px] w-[full]'>
                 <div>
                     <p data-aos="fade-right" data-aos-duration="1500" className='mb-[70px] font-[800] text-smallTextColor text-[100px]'>CASHOUT</p>
                     <h1 className='font-[600] text-[20px] p-2'>BALANCE</h1>
                     <p data-aos="fade-up" data-aos-duration="1500" className='font-[700] text-[80px]'>&#2547; {user.balance} BDT</p>
+                    <p className='font-[400] text-[20px] text-gray-400'>Total Cost: 5 + {amount && (parseFloat(amount) + parseFloat(amount) * 0.001)}</p>
+                    {amount > 0 && (
+                          <p className={`font-[400] text-[18px] mt-5 ${remainingBalance < 0 ? 'text-red-400' : 'text-green-400'}`}>
+                            Remaining Balance: {remainingBalance}
+                          </p>
+                        )}
                 </div>
                 <div className='flex flex-col pr-[80px]'>
                     <div className='flex flex-col my-[20px]'>

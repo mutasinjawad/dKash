@@ -52,8 +52,8 @@ const UserHome = ({ token, user, setUser }) => {
               {/* Add Money */}
               {user.type === 'agent' && (<Link to="/add">
                 <div className="mr-10 sm:mt-0">
-                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
-                    <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
+                  <div className="flex justify-center items-center bg-[#e8deff] w-[150px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
+                    <h3 className="text-primaryColor font-[500] text-[14px] group-hover:text-white">
                       Add Money <i class="ri-map-pin-add-line"></i>
                     </h3>
                   </div>
@@ -61,47 +61,56 @@ const UserHome = ({ token, user, setUser }) => {
               </Link>)}
               {/* send Money */}
               {user.type !== 'merchant' && (<Link to="/send">
-                <div className="">
-                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
-                    <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
+                <div className="mr-10">
+                  <div className="flex justify-center items-center bg-[#e8deff] w-[150px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
+                    <h3 className="text-primaryColor font-[500] text-[14px] group-hover:text-white">
                       Send Money <i class="ri-send-plane-line"></i>
                     </h3>
                   </div>
                 </div>
               </Link>)}
-            </div>
-            <div className="flex justify-center">
               {/* Cashout */}
               <Link to="/cashout">
                 <div className="mr-10 sm:mt-0">
-                  <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
-                    <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
+                  <div className="flex justify-center items-center bg-[#e8deff] w-[150px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
+                    <h3 className="text-primaryColor font-[500] text-[14px] group-hover:text-white">
                       Cashout <i class="ri-logout-circle-r-line"></i>
                     </h3>
                   </div>
                 </div>
               </Link>
+            {/* Recharge */}
+            {user.type !== "agent" && user.type !== "marchant" && (
+                  <Link to="/recharge">
+                      <div className="sm:mt-0">
+                          <div className="flex justify-center items-center bg-[#e8deff] w-[150px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
+                          <h3 className="text-primaryColor font-[500] text-[14px] group-hover:text-white">
+                              Mobile Recharge <i class="ri-secure-payment-line"></i>
+                          </h3>
+                          </div>
+                      </div>
+                  </Link>
+              )}
+            </div>
+            <div className="flex justify-center">
               {/* Payment */}
               {user.type !== "agent" && (
                   <Link to="/payment">
-                      <div className="ml-10 sm:mt-0">
-                          <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
-                          <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
+                      <div className="sm:mt-0">
+                          <div className="flex justify-center items-center bg-[#e8deff] w-[150px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
+                          <h3 className="text-primaryColor font-[500] text-[14px] group-hover:text-white">
                               Payment <i class="ri-secure-payment-line"></i>
                           </h3>
                           </div>
                       </div>
                   </Link>
               )}
-              
-            </div>
-             <div className="flex justify-center my-6">
               {/* Loan */}
                 {user.type !== "agent" && user.type !== "marchant" && (
                   <Link to="/loan">
                       <div className="ml-10 sm:mt-0">
-                          <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
-                          <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
+                          <div className="flex justify-center items-center bg-[#e8deff] w-[150px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
+                          <h3 className="text-primaryColor font-[500] text-[14px] group-hover:text-white">
                               Loan <i class="ri-secure-payment-line"></i>
                           </h3>
                           </div>
@@ -109,20 +118,7 @@ const UserHome = ({ token, user, setUser }) => {
                   </Link>
               )}
               
-              {/* Recharge */}
-              {user.type !== "agent" && user.type !== "marchant" && (
-                  <Link to="/recharge">
-                      <div className="ml-10 sm:mt-0">
-                          <div className="flex justify-center items-center bg-[#e8deff] w-[200px] h-[80px] rounded-[25px] shadow group hover:bg-primaryColor cursor-pointer ease-in duration-150">
-                          <h3 className="text-primaryColor font-[500] text-[17px] group-hover:text-white">
-                              Mobile Recharge <i class="ri-secure-payment-line"></i>
-                          </h3>
-                          </div>
-                      </div>
-                  </Link>
-              )}
-
-             </div>
+            </div>
 
           </div>
         

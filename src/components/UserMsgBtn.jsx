@@ -32,7 +32,7 @@ const UserMsgBtn = ({token, user, setUser}) => {
             }),
         })
         .then((data) => data.json())
-        .then(() => toggleMessageIcon)
+        .then(() => {toggleMessageIcon();})
         .catch((err) => console.log(err));
     }
 
@@ -82,7 +82,7 @@ return (
                             onChange={handleChange}
                         />
                     </div>
-                    <button onClick={handleSubmit} className='p-3 m-2 focus:outline-none rounded-full bg-smallTextColor text-white text-center hover:bg-headingColor'>
+                    <button onClick={(e) => {handleSubmit(e), toggleMessageIcon()}} className='p-3 m-2 focus:outline-none rounded-full bg-smallTextColor text-white text-center hover:bg-headingColor'>
                         Send Message
                     </button>
                 </div>

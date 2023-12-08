@@ -8,7 +8,7 @@ const MsgSubject = ({token, user, setUser, setSelectedChat}) => {
   const [chats, setChats] = useState([])
 
   useEffect(() => {
-      fetch(host + "/admin/chat", {
+      fetch(host + "/admin/chat/", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

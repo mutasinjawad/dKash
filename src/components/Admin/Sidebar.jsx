@@ -25,14 +25,18 @@ const Sidebar = () => {
                         <li>Users</li>
                     </div>
                 </Link>
-                <div className={linkClass}>
-                    <i class="ri-bank-line"></i>
-                    <li>Transactions</li>
-                </div>
-                <div className={linkClass}>
-                    <i class="ri-settings-3-line"></i>
-                    <li >Settings</li>
-                </div>
+                <Link to='/admin/transactions'>
+                    <div className={linkClass}>
+                        <i class="ri-bank-line"></i>
+                        <li>Transactions</li>
+                    </div>
+                </Link>
+                <Link to='/profile'>
+                    <div className={linkClass}>
+                        <i class="ri-settings-3-line"></i>
+                        <li >Settings</li>
+                    </div>
+                </Link>
             </ul>
         </div>
             <Link to='/login'>

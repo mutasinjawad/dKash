@@ -1,13 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ResponsiveContainer as ResoponsiveContainer, PieChart, Pie, Tooltip, Legend, Cell } from 'recharts'
+import host from '../../api'
 
-const DashUserProfileChart = () => {
+const DashUserProfileChart = ({ token, user, setUser }) => {
 
+    const [users, setUsers] = useState([])
     const data = [
         {name: 'User', value: 540},
         {name: 'Agent', value: 620},
         {name: 'Merchant', value: 210}
     ]
+
+    useEffect(() => {
+        fetch (host + "/admin/users", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                token: token,
+            },
+        })
+        .then((data) => data.json())
+        .then((data) => {
+            setUsers(data);
+            console.log(data)
+        })
+        .catch((err) => {console.log(err); console.log(token)});
+    }, [token]);
 
     const RADIAN = Math.PI / 180
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']

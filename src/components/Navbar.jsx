@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import Logo from "../assets/final.png";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, Outlet } from "react-router-dom";
 import defaultPic from '../assets/profile.png';
 import { useState } from "react";
 import host from "../api";
@@ -54,7 +54,8 @@ const Navbar = ({setToken, setUser, user, token}) => {
   const toggleMenu = () => menuRef.current.classList.toggle("show_menu");
 
   return (
-    <header
+    <div>
+      <header
       ref={headerRef}
       className="w-full h-[80px] flex items-center bg-transparent"
     >
@@ -182,12 +183,12 @@ const Navbar = ({setToken, setUser, user, token}) => {
                       <h1 className="ml-[15px]">Proile</h1>
                       </button>
                     </Link>
-                    {/* <Link to="/contacts"> */}
+                    <Link to="/contacts">
                       <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
                         <i class="ri-contacts-line"></i>
                         <h1 className="ml-[15px]">Contacts</h1>
                       </button>
-                    {/* </Link> */}
+                    </Link>
                     {/* <Link to="/history"> */}
                       <button className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
                         <i class="ri-history-fill"></i>
@@ -201,7 +202,7 @@ const Navbar = ({setToken, setUser, user, token}) => {
                       </button>
                     </Link>
                     <button
-                        onClick={() => {localStorage.removeItem('token'); setToken(false); setUser(false); navigate('/login')}} 
+                        onClick={() => {localStorage.removeItem('token'); navigate('/login')}} 
                         className="flex items-center px-[20px] w-full h-[50px] text-[20px] text-smallTextColor cursor-pointer hover:bg-[#f2edff] ease-in duration-75">
                         <i class="ri-logout-box-r-line"></i>
                         <h1 className="ml-[15px]">Log Out</h1>
@@ -219,6 +220,7 @@ const Navbar = ({setToken, setUser, user, token}) => {
         </div>
       </div>
     </header>
+    </div>
   );
 };
 

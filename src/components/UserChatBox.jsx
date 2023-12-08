@@ -35,8 +35,8 @@ const UserChatBox = ({token, user, setUser}) => {
   }
 
   return (
-    <div className='flex justify-center w-full h-screen bg-primaryColor px-36'>
-      <div className='flex flex-row gap-4 w-full h-[46rem] my-10'>
+    <div className='flex justify-center w-full h-[54.9rem] bg-primaryColor px-36'>
+      <div className='flex flex-row gap-4 w-full h-[46rem] my-5'>
         <div className='w-[38rem] bg-white p-4 mt-4 rounded-2xl border border-gray-200 flex flex-col'>
           <UserMsgSubject token={token} user={user} setUser={setUser} setSelectedChat={setSelectedChat} />
         </div>

@@ -10,7 +10,7 @@ const Layout = ({token, user, setUser}) => {
             <Sidebar />
             <div className='flex-1'>
                 <Header token={token} user={user} setUser={setUser}/>
-                {<Outlet />}
+                {<Outlet token={token} user={user} setUser={setUser}/>}
             </div>
         </div>
     )
