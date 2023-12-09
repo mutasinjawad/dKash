@@ -24,7 +24,7 @@ const Register = ({ token, setToken, setUser }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (phone.length == 14){
+    if (phone.length == 14) {
       if (pin == cPin && pin.length == 6) {
         const form = { phone, pin };
         console.log(JSON.stringify(form));
@@ -35,23 +35,26 @@ const Register = ({ token, setToken, setUser }) => {
           },
           body: JSON.stringify(form),
         })
-        .then((data) => data.text())
-        .then((t) => {
-          localStorage.setItem("token", t);
-          setToken(t);
-          const user = jwtDecode(t);
-          setUser(user);
-        })
-        .then(() => {
-          navigate("/home");
-        })
-        .catch((err) => console.log(err));
-      }
-      else {
+          .then((data) => {
+            if (data.status !== 200) {
+              throw new Error("Invalid Credentials");
+            }
+            return data.text();
+          })
+          .then((t) => {
+            localStorage.setItem("token", t);
+            setToken(t);
+            const user = jwtDecode(t);
+            setUser(user);
+          })
+          .then(() => {
+            navigate("/home");
+          })
+          .catch((err) => alert(err));
+      } else {
         alert("Pin Length should be 6 and should match");
       }
-    }
-    else {
+    } else {
       alert("Invalid Phone Number");
     }
   };
@@ -109,8 +112,15 @@ const Register = ({ token, setToken, setUser }) => {
       </div>
       <div className="flex gap-[30px] my-[50px] mx-auto">
         <div>
-            <h1 className="text-[13px] text-gray-600">Already have an account?</h1>
-            <Link to={"/login"} className="text-gray-700 cursor-pointer hover:text-white hover:underline ease-in duration-100">Click Here!</Link>
+          <h1 className="text-[13px] text-gray-600">
+            Already have an account?
+          </h1>
+          <Link
+            to={"/login"}
+            className="text-gray-700 cursor-pointer hover:text-white hover:underline ease-in duration-100"
+          >
+            Click Here!
+          </Link>
         </div>
         <div
           onClick={handleSubmit}
